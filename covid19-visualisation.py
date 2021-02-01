@@ -4,14 +4,29 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
+import time
+from concurrent.futures import ThreadPoolExecutor
 
 
 app = dash.Dash(__name__)
 server = app.server
 
-df = pd.read_csv('owid-covid-data.csv')
 
-dict_comprehension = [{'label': i, 'value': str(i)}for i in df['location'].unique()]
+def get_new_data():
+    """Updates the global variable 'df' with new data"""
+    global df
+    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    print('data loaded')
+
+
+def get_new_data_every(period=43200):
+    """Update the data every 'period' seconds"""
+    while True:
+        get_new_data()
+        time.sleep(period)
+
+
+get_new_data()
 
 app.layout = html.Div([
 
@@ -50,6 +65,9 @@ def update_graph(country_names):
                                 )
             }
 
+
+executor = ThreadPoolExecutor(max_workers=1)
+executor.submit(get_new_data_every)
 
 if __name__ == '__main__':
     app.run_server()
