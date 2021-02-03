@@ -6,10 +6,18 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import time
 from concurrent.futures import ThreadPoolExecutor
+import urllib.request as urllib2
 
 
 app = dash.Dash(__name__)
 server = app.server
+
+
+def openurl():
+    url = 'https://covid19-visualisation-seb.herokuapp.com/'
+    print('opening URL')
+    urllib2.urlopen(url)
+    print('URL loaded')
 
 
 def get_new_data():
@@ -19,10 +27,11 @@ def get_new_data():
     print('data loaded')
 
 
-def get_new_data_every(period=43200):
+def get_new_data_every(period=10):
     """Update the data every 'period' seconds"""
     while True:
         get_new_data()
+        openurl()
         time.sleep(period)
 
 
