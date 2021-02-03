@@ -27,7 +27,7 @@ def get_new_data():
     print('data loaded')
 
 
-def get_new_data_every(period=10):
+def get_new_data_every(period=1200):
     """Update the data every 'period' seconds"""
     while True:
         get_new_data()
