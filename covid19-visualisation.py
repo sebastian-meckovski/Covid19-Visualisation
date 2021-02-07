@@ -4,6 +4,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
+import plotly.express as px
 import time
 from concurrent.futures import ThreadPoolExecutor
 import urllib.request as urllib2
@@ -39,15 +40,31 @@ get_new_data()
 
 app.layout = html.Div([
 
-    dcc.Dropdown(
-        id='country_selected',
-        options=[{'label': i, 'value': i}for i in df['location'].unique()],
-        multi=True,
-        value=['United Kingdom', 'United States'],
-        style={'margin-bottom': '10px'}
-    ),
+    html.Div([
 
-    dcc.Graph(id='feature-graphic')
+        dcc.Dropdown(
+            id='country_selected',
+            options=[{'label': i, 'value': i}for i in df['location'].unique()],
+            multi=True,
+            value=['United Kingdom', 'United States'],
+        ),
+
+        dcc.Graph(id='feature-graphic'),
+
+        ]),
+
+    html.Div([
+
+        dcc.Dropdown(
+            id='country_selected2',
+            options=[{'label': i, 'value': i} for i in df['location'].unique()],
+            value='United Kingdom',
+        ),
+
+        dcc.Graph(id='feature-graphic2'),
+
+    ]),
+
 
 ])
 
@@ -55,13 +72,13 @@ app.layout = html.Div([
 @app.callback(Output('feature-graphic', 'figure'),
               [Input('country_selected', 'value')]
               )
-def update_graph(country_names):
+def update_graph1(country_names):
     scatter_list = []
     for i in range(len(country_names)):
         country_df = df[df['location'] == country_names[i]]
         country_vac = country_df.dropna(subset=['total_vaccinations'])
         temp = go.Scatter(x=country_vac['date'],
-                          y=country_vac['total_vaccinations'],
+                          y=country_vac['total_vaccinations_per_hundred'],
                           mode='lines+markers',
                           name=country_names[i])
         scatter_list.append(temp)
@@ -70,9 +87,20 @@ def update_graph(country_names):
 
             'layout': go.Layout(title='Global Vaccinations Data By Country',
                                 xaxis={'title': 'Date'},
-                                yaxis={'title': 'Total Vaccinations to date'}
+                                yaxis={'title': 'Total Vaccinations Per Hundred'}
                                 )
             }
+
+
+@app.callback(Output('feature-graphic2', 'figure'),
+              [Input('country_selected2', 'value')]
+              )
+def update_graph2(country_name):
+    country_df = df[df['location'] == country_name]
+    fig = px.bar(country_df, x='date', y='new_cases')
+    fig.update_layout(title='Total cases per day')
+
+    return fig
 
 
 executor = ThreadPoolExecutor(max_workers=1)
