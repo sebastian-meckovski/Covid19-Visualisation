@@ -37,7 +37,6 @@ def get_new_data_every(period=1200):
 
 
 get_new_data()
-
 app.layout = html.Div([
 
     html.Div([
@@ -65,6 +64,12 @@ app.layout = html.Div([
 
     ]),
 
+    html.Div([
+
+        dcc.Graph(id='feature-graphic3')
+
+    ])
+
 
 ])
 
@@ -86,7 +91,6 @@ def update_graph1(country_names):
     return {'data': scatter_list,
 
             'layout': go.Layout(title='Global Vaccinations Data By Country',
-                                xaxis={'title': 'Date'},
                                 yaxis={'title': 'Total Vaccinations Per Hundred'}
                                 )
             }
@@ -98,7 +102,20 @@ def update_graph1(country_names):
 def update_graph2(country_name):
     country_df = df[df['location'] == country_name]
     fig = px.bar(country_df, x='date', y='new_cases')
-    fig.update_layout(title='Total cases per day')
+    fig.update_layout(title='Total cases per day', xaxis=None, yaxis={'title': 'Daily Cases'})
+
+    return fig
+
+
+@app.callback(Output('feature-graphic3', 'figure'),
+              [Input('country_selected2', 'value')]
+              )
+def update_piechart(country_name):
+    selected_country_vac = df[df['location'] == country_name]['total_vaccinations_per_hundred'].max()
+    chart_values = [selected_country_vac, 100 - selected_country_vac]
+    labels = ['Vaccinated population', 'Non vaccinated population']
+
+    fig = go.Figure(data=[go.Pie(labels=labels, values=chart_values, title='Vaccinated population percentage')])
 
     return fig
 
