@@ -16,6 +16,7 @@ server = app.server
 
 def openurl():
     url = 'https://covid19-visualisation-seb.herokuapp.com/'
+    # url = 'https://www.google.com/'
     print('opening URL')
     urllib2.urlopen(url)
     print('URL loaded')
@@ -25,6 +26,7 @@ def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df
     df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    # df = pd.read_csv('owid-covid-data.csv')
     print('data loaded')
 
 
@@ -39,6 +41,7 @@ def get_new_data_every(period=1200):
 get_new_data()
 app.layout = html.Div([
 
+
     html.Div([
 
         dcc.Dropdown(
@@ -49,7 +52,8 @@ app.layout = html.Div([
         ),
 
         dcc.Graph(id='feature-graphic',
-                  config={'displayModeBar': False}),
+                  config={'displayModeBar': False},
+                  ),
 
         ], className='innerdiv1'),
 
@@ -74,7 +78,7 @@ app.layout = html.Div([
     ], className='innerdiv1'),
 
     html.Div([
-        html.H2("whateveR")
+        html.H2("Div under connstruction")
     ], className='innerdiv1')
 
 
@@ -89,19 +93,19 @@ def update_graph1(country_names):
     for i in range(len(country_names)):
         country_df = df[df['location'] == country_names[i]]
         country_vac = country_df.dropna(subset=['total_vaccinations'])
-        temp = go.Scatter(x=country_vac['date'],
-                          y=country_vac['total_vaccinations_per_hundred'],
-                          mode='lines+markers',
-                          name=country_names[i],
-                          #showlegend=False,
-                          )
-        scatter_list.append(temp)
+        fig = go.Scatter(x=country_vac['date'],
+                         y=country_vac['total_vaccinations_per_hundred'],
+                         mode='lines+markers',
+                         name=country_names[i],
+                         )
+        scatter_list.append(fig)
 
     return {'data': scatter_list,
 
             'layout': go.Layout(title='Global Vaccinations Data By Country',
-                                yaxis={'title': 'Total Vaccinations Per Hundred'},
-                                legend={'orientation': 'h',  'yanchor': 'bottom', 'x': 0, 'y': 1}
+                                yaxis={'title': 'Total Vaccinations Per Hundred', 'anchor': 'free', 'position': 0.05},
+                                legend={'orientation': 'h',  'yanchor': 'bottom', 'x': 0, 'y': 1},
+                                margin=dict(l=5, r=5, t=20, b=30)
                                 )
             }
 
@@ -112,7 +116,9 @@ def update_graph1(country_names):
 def update_graph2(country_name):
     country_df = df[df['location'] == country_name]
     fig = px.bar(country_df, x='date', y='new_cases')
-    fig.update_layout(title='Total cases per day', xaxis=None, yaxis={'title': 'Daily Cases'})
+    fig.update_layout(title={'text': 'Total cases per day', 'y': .85, 'x': .1},
+                      xaxis=None, yaxis={'title': 'Daily Cases', 'anchor': 'free', 'position': 0.05},
+                      margin=dict(l=5, r=5, t=20, b=20))
 
     return fig
 
