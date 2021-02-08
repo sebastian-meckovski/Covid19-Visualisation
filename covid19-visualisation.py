@@ -43,14 +43,15 @@ app.layout = html.Div([
 
         dcc.Dropdown(
             id='country_selected',
-            options=[{'label': i, 'value': i}for i in df['location'].unique()],
+            options=[{'label': i, 'value': i} for i in df['location'].unique()],
             multi=True,
             value=['United Kingdom', 'United States'],
         ),
 
-        dcc.Graph(id='feature-graphic'),
+        dcc.Graph(id='feature-graphic',
+                  config={'displayModeBar': False}),
 
-        ]),
+        ], className='innerdiv1'),
 
     html.Div([
 
@@ -60,18 +61,24 @@ app.layout = html.Div([
             value='United Kingdom',
         ),
 
-        dcc.Graph(id='feature-graphic2'),
+        dcc.Graph(id='feature-graphic2',
+                  config={'displayModeBar': False})
 
-    ]),
+    ], className='innerdiv1'),
 
     html.Div([
 
-        dcc.Graph(id='feature-graphic3')
+        dcc.Graph(id='feature-graphic3',
+                  config={'displayModeBar': False})
 
-    ])
+    ], className='innerdiv1'),
+
+    html.Div([
+        html.H2("whateveR")
+    ], className='innerdiv1')
 
 
-])
+], className='container')
 
 
 @app.callback(Output('feature-graphic', 'figure'),
@@ -85,13 +92,16 @@ def update_graph1(country_names):
         temp = go.Scatter(x=country_vac['date'],
                           y=country_vac['total_vaccinations_per_hundred'],
                           mode='lines+markers',
-                          name=country_names[i])
+                          name=country_names[i],
+                          #showlegend=False,
+                          )
         scatter_list.append(temp)
 
     return {'data': scatter_list,
 
             'layout': go.Layout(title='Global Vaccinations Data By Country',
-                                yaxis={'title': 'Total Vaccinations Per Hundred'}
+                                yaxis={'title': 'Total Vaccinations Per Hundred'},
+                                legend={'orientation': 'h',  'yanchor': 'bottom', 'x': 0, 'y': 1}
                                 )
             }
 
