@@ -8,9 +8,10 @@ import plotly.express as px
 import time
 from concurrent.futures import ThreadPoolExecutor
 import urllib.request as urllib2
+import dash_bootstrap_components as dbc
 
 
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SKETCHY])
 server = app.server
 
 
@@ -41,6 +42,12 @@ def get_new_data_every(period=1200):
 get_new_data()
 app.layout = html.Div([
 
+    html.Div([
+
+       html.Nav('This is nav')
+
+    ], id='content0'),
+
 
     html.Div([
 
@@ -55,7 +62,7 @@ app.layout = html.Div([
                   config={'displayModeBar': False},
                   ),
 
-        ], className='innerdiv1'),
+        ], id='content1'),
 
     html.Div([
 
@@ -68,18 +75,18 @@ app.layout = html.Div([
         dcc.Graph(id='feature-graphic2',
                   config={'displayModeBar': False})
 
-    ], className='innerdiv1'),
+    ], id='content2'),
 
     html.Div([
 
         dcc.Graph(id='feature-graphic3',
                   config={'displayModeBar': False})
 
-    ], className='innerdiv1'),
+    ], id='content3'),
 
     html.Div([
         html.H2("Div under connstruction")
-    ], className='innerdiv1')
+    ], id='content4')
 
 
 ], className='container')
