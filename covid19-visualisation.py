@@ -15,8 +15,8 @@ server = app.server
 
 
 def openurl():
-    # url = 'https://covid19-visualisation-seb.herokuapp.com/'
-    url = 'https://www.google.com/'
+    url = 'https://covid19-visualisation-seb.herokuapp.com/'
+    # url = 'https://www.google.com/'
     print('opening URL')
     urllib2.urlopen(url)
     print('URL loaded')
@@ -25,8 +25,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df
-    df = pd.read_csv('owid-covid-data.csv')
     # df = pd.read_csv('owid-covid-data.csv')
+    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     print('data loaded')
 
 
