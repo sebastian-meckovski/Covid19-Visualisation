@@ -1,3 +1,19 @@
+body {
+  background-color: #FF9671;
+}
+
+
+#country_selected2 .VirtualizedSelectFocusedOption{
+  background-color: #FFC75F;
+}
+
+
+
+#country_selected .VirtualizedSelectFocusedOption{
+  background-color: #FFC75F;
+}
+
+
 .container {
   display: grid;
   height: 100vh;
@@ -43,7 +59,7 @@
     grid-area: content4;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 800px) {
   .container {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: 0.1fr 1fr 1fr 1fr 1fr;

@@ -55,10 +55,14 @@ app.layout = html.Div([
             options=[{'label': i, 'value': i} for i in df['location'].unique()],
             multi=True,
             value=['United Kingdom', 'United States'],
+            style={
+                'color': '#FFC75F',
+                'background-color': '#FFC75F'
+            }
         ),
 
         dcc.Graph(id='feature-graphic',
-                  config={'displayModeBar': False},
+                  config={'displayModeBar': False}
                   ),
 
         ], id='content1'),
@@ -69,6 +73,10 @@ app.layout = html.Div([
             id='country_selected2',
             options=[{'label': i, 'value': i} for i in df['location'].unique()],
             value='United Kingdom',
+            style={
+                'color': '#FFC75F',
+                'background-color': '#FFC75F'
+            }
         ),
 
         dcc.Graph(id='feature-graphic2',
@@ -111,7 +119,9 @@ def update_graph1(country_names):
             'layout': go.Layout(title='Global Vaccinations Data By Country',
                                 yaxis={'title': 'Total Vaccinations Per Hundred', 'anchor': 'free', 'position': 0.05},
                                 legend={'orientation': 'h',  'yanchor': 'bottom', 'x': 0, 'y': 1},
-                                margin=dict(l=5, r=5, t=20, b=30)
+                                margin=dict(l=5, r=5, t=20, b=30),
+                                plot_bgcolor='#FF9671',
+                                paper_bgcolor='#FF9671'
                                 )
             }
 
