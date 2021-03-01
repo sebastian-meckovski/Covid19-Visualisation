@@ -1,16 +1,16 @@
 body {
-  background-color: #FF9671;
+  background-color: #f4f3f3;
 }
 
 
 #country_selected2 .VirtualizedSelectFocusedOption{
-  background-color: #FFC75F;
+  background-color: #dfdfdf;
 }
 
 
 
 #country_selected .VirtualizedSelectFocusedOption{
-  background-color: #FFC75F;
+  background-color: #dfdfdf;
 }
 
 
@@ -30,31 +30,26 @@ body {
 }
 
 #content0{
-    border: 2px solid grey;
     border-radius: 10px;
     grid-area: content0;
 }
 
 #content1{
-    border: 2px solid grey;
     border-radius: 10px;
     grid-area: content1;
 }
 
 #content2{
-    border: 2px solid grey;
     border-radius: 10px;
     grid-area: content2;
 }
 
 #content3{
-    border: 2px solid grey;
     border-radius: 10px;
     grid-area: content3;
 }
 
 #content4{
-    border: 2px solid grey;
     border-radius: 10px;
     grid-area: content4;
 }

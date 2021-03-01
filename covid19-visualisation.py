@@ -15,8 +15,8 @@ server = app.server
 
 
 def openurl():
-    url = 'https://covid19-visualisation-seb.herokuapp.com/'
-    # url = 'https://www.google.com/'
+    # url = 'https://covid19-visualisation-seb.herokuapp.com/'
+    url = 'https://www.google.com/'
     print('opening URL')
     urllib2.urlopen(url)
     print('URL loaded')
@@ -25,8 +25,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     print('data loaded')
 
 
@@ -56,8 +56,8 @@ app.layout = html.Div([
             multi=True,
             value=['United Kingdom', 'United States'],
             style={
-                'color': '#FFC75F',
-                'background-color': '#FFC75F'
+                'color': 'black',
+                'background-color': '#dfdfdf'
             }
         ),
 
@@ -74,8 +74,8 @@ app.layout = html.Div([
             options=[{'label': i, 'value': i} for i in df['location'].unique()],
             value='United Kingdom',
             style={
-                'color': '#FFC75F',
-                'background-color': '#FFC75F'
+                'color': 'black',
+                'background-color': '#dfdfdf'
             }
         ),
 
@@ -120,8 +120,8 @@ def update_graph1(country_names):
                                 yaxis={'title': 'Total Vaccinations Per Hundred', 'anchor': 'free', 'position': 0.05},
                                 legend={'orientation': 'h',  'yanchor': 'bottom', 'x': 0, 'y': 1},
                                 margin=dict(l=5, r=5, t=20, b=30),
-                                plot_bgcolor='#FF9671',
-                                paper_bgcolor='#FF9671'
+                                plot_bgcolor='#bfd8d5',
+                                paper_bgcolor='#bfd8d5'
                                 )
             }
 
@@ -134,7 +134,9 @@ def update_graph2(country_name):
     fig = px.bar(country_df, x='date', y='new_cases')
     fig.update_layout(title={'text': 'Total cases per day', 'y': .85, 'x': .1},
                       xaxis=None, yaxis={'title': 'Daily Cases', 'anchor': 'free', 'position': 0.05},
-                      margin=dict(l=5, r=5, t=20, b=20))
+                      margin=dict(l=5, r=5, t=20, b=20),
+                      plot_bgcolor='#bfd8d5',
+                      paper_bgcolor='#bfd8d5')
 
     return fig
 
@@ -147,8 +149,12 @@ def update_piechart(country_name):
     chart_values = [selected_country_vac, 100 - selected_country_vac]
     labels = ['Vaccinated population', 'Non vaccinated population']
 
-    fig = go.Figure(data=[go.Pie(labels=labels, values=chart_values, title='Vaccinated population percentage')])
-
+    fig = go.Figure(data=[go.Pie(labels=labels,
+                                 values=chart_values,
+                                 title='Vaccinated population percentage')])
+    fig.update_layout(plot_bgcolor='#bfd8d5',
+                      paper_bgcolor='#bfd8d5',
+                      margin=dict(t=30, b=30, l=30, r=30))
     return fig
 
 
