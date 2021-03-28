@@ -18,11 +18,11 @@ server = app.server
 
 
 def openurl():
-    # url = 'https://covid19-visualisation-seb.herokuapp.com/'
-    # # url = 'https://www.google.com/'
-    # print('opening URL')
-    # urllib2.urlopen(url)
-    # print('URL loaded')
+    url = 'https://covid19-visualisation-seb.herokuapp.com/'
+    # url = 'https://www.google.com/'
+    print('opening URL')
+    urllib2.urlopen(url)
+    print('URL loaded')
     pass
 
 
