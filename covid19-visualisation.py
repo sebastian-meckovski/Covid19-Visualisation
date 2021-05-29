@@ -112,7 +112,7 @@ def update_graph1(country_names):
         country_df = df[df['location'] == country_names[i]]
         country_vac = country_df.dropna(subset=['total_vaccinations'])
         fig = go.Scatter(x=country_vac['date'],
-                         y=country_vac['total_vaccinations_per_hundred'],
+                         y=country_vac['people_vaccinated_per_hundred'],
                          mode='lines+markers',
                          name=country_names[i],
                          )
@@ -120,8 +120,9 @@ def update_graph1(country_names):
 
     return {'data': scatter_list,
 
-            'layout': go.Layout(title='Global Vaccinations Data By Country',
-                                yaxis={'title': 'Total Vaccinations Per Hundred', 'anchor': 'free', 'position': 0.05},
+            'layout': go.Layout(title='Percentage of people who received at least one dose of vaccine',
+                                yaxis={'title': 'Total Vaccinations Per Hundred', 'anchor': 'free', 'position': 0.05,
+                                       'ticksuffix': '%'},
                                 legend={'orientation': 'h',  'yanchor': 'bottom', 'x': 0, 'y': 1},
                                 margin=dict(l=5, r=5, t=20, b=30),
                                 plot_bgcolor='#bfd8d5',
