@@ -80,8 +80,10 @@ app.layout = html.Div([
             style={
                 'color': 'black',
                 'background-color': '#dfdfdf'
-            }
-        ),
+            })
+    ], id='dropdown1' ),
+    
+    html.Div([
 
         dcc.Graph(id='feature-graphic2',
                   config={'displayModeBar': False})
