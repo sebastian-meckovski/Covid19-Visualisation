@@ -51,10 +51,8 @@ app.layout = html.Div([
 
     ], id='navbar'),
 
-
     html.Div([
-
-        dcc.Dropdown(
+                dcc.Dropdown(
             id='country_selected',
             options=[{'label': i, 'value': i} for i in df['location'].unique()],
             multi=True,
@@ -64,6 +62,9 @@ app.layout = html.Div([
                 'background-color': '#dfdfdf'
             }
         ),
+    ], id='dropdown0'),
+
+    html.Div([
 
         dcc.Graph(id='feature-graphic',
                   config={'displayModeBar': False}
@@ -98,7 +99,7 @@ app.layout = html.Div([
     ], id='content3'),
 
     html.Div([
-        html.H2("Div under connstruction")
+        html.H2("page under connstruction")
     ], id='content4')
 
 
@@ -123,7 +124,7 @@ def update_graph1(country_names):
     return {'data': scatter_list,
 
             'layout': go.Layout(title='Percentage of people who received at least one dose of vaccine',
-                                yaxis={'title': 'Total Vaccinations Per Hundred', 'anchor': 'free', 'position': 0.05,
+                                yaxis={'anchor': 'free', 'position': 0.05,
                                        'ticksuffix': '%'},
                                 legend={'orientation': 'h',  'yanchor': 'bottom', 'x': 0, 'y': 1},
                                 margin=dict(l=5, r=5, t=20, b=30),
