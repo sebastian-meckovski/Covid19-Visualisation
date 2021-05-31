@@ -47,9 +47,9 @@ app.layout = html.Div([
 
     html.Div([
 
-       html.Nav('This is nav')
+       html.Nav('Covid-19 global data Dashboard')
 
-    ], id='content0'),
+    ], id='navbar'),
 
 
     html.Div([
