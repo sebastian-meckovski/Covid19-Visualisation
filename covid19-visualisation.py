@@ -128,7 +128,10 @@ def update_graph1(country_names):
                          y=country_vac['people_vaccinated_per_hundred'],
                          mode='lines+markers',
                          name=country_names[i],
-                         )
+                         )                                                          # printing min and max of the dates
+        print(country_names[i], "min date: ", min(country_vac['date']))             # as we will need them later when
+        print(country_names[i], "max date: ", max(country_vac['date']))             # when building rangeslider
+
         scatter_list.append(fig)
 
     return {'data': scatter_list,
