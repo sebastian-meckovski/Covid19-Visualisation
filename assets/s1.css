@@ -26,6 +26,7 @@ body {
     "dropdown0 dropdown0"
     "content1 content1"
     ". dropdown1"
+    "myslider ."
     "content2 content3"
     "content4 content4";
   grid-gap: 3px;
@@ -38,8 +39,15 @@ body {
 
 #dropdown1{
   grid-column: 1/3;
+  grid-row: 5;
+}
+
+#myslider{
+  border: black solid 2px;
+  grid-column: 1/3;
   grid-row: 4;
 }
+
 
 #navbar{
     border-radius: 10px;
@@ -50,6 +58,7 @@ body {
     border-radius: 10px;
     grid-area: content1;
 }
+
 
 #content2{
     border-radius: 10px;

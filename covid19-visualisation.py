@@ -29,8 +29,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     print('data loaded')
 
 
@@ -53,15 +53,16 @@ app.layout = html.Div([
 
     html.Div([
                 dcc.Dropdown(
-            id='country_selected',
-            options=[{'label': i, 'value': i} for i in df['location'].unique()],
-            multi=True,
-            value=['United Kingdom', 'United States'],
-            style={
-                'color': 'black',
-                'background-color': '#dfdfdf'
-            }
-        ),
+
+                    id='country_selected',
+                    options=[{'label': i, 'value': i} for i in df['location'].unique()],
+                    multi=True,
+                    value=['United Kingdom', 'United States'],
+                    style={
+                        'color': 'black',
+                        'background-color': '#dfdfdf'
+                    }
+                ),
     ], id='dropdown0'),
 
     html.Div([
@@ -71,6 +72,15 @@ app.layout = html.Div([
                   ),
 
         ], id='content1'),
+
+    html.Div([
+        dcc.RangeSlider(id='slider',
+                        min=2015,
+                        max=2021,
+                        step=1,
+                        value=[2017, 2019],
+                        )
+    ], id='myslider'),
 
     html.Div([
 
