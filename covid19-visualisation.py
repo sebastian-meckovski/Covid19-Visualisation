@@ -29,8 +29,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df
-    df = pd.read_csv('owid-covid-data.csv')
-    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    # df = pd.read_csv('owid-covid-data.csv')
+    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     print('data loaded')
 
 
@@ -40,6 +40,9 @@ def get_new_data_every(period=1200):
         get_new_data()
         openurl()
         time.sleep(period)
+
+
+# mark_values = {2015: '2015', 2016: '2016', 2017: "2017", 2018: "2018", 2019: "2019", 2020: "2020", 2021: "2021"}
 
 
 get_new_data()
@@ -77,8 +80,9 @@ app.layout = html.Div([
         dcc.RangeSlider(id='slider',
                         min=2015,
                         max=2021,
-                        step=1,
+                        step=0.1,
                         value=[2017, 2019],
+                        tooltip={'always_visible': True, 'placement': 'bottom'}
                         )
     ], id='myslider'),
 
@@ -92,7 +96,7 @@ app.layout = html.Div([
                 'color': 'black',
                 'background-color': '#dfdfdf'
             })
-    ], id='dropdown1' ),
+    ], id='dropdown1'),
     
     html.Div([
 
