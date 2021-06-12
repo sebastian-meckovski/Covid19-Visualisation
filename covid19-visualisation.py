@@ -5,7 +5,8 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import plotly.express as px
-import time
+import datetime as dt
+import time as t
 from concurrent.futures import ThreadPoolExecutor
 import urllib.request as urllib2
 
@@ -18,8 +19,9 @@ server = app.server
 
 
 def openurl():
-    url = 'https://covid19-visualisation-seb.herokuapp.com/'
-    # url = 'https://www.google.com/'
+    """this function will send a request to 'url' and do nothing after that"""
+    # url = 'https://covid19-visualisation-seb.herokuapp.com/'
+    url = 'https://www.google.com/'
     print('opening URL')
     urllib2.urlopen(url)
     print('URL loaded')
@@ -29,8 +31,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     print('data loaded')
 
 
@@ -39,11 +41,35 @@ def get_new_data_every(period=1200):
     while True:
         get_new_data()
         openurl()
-        time.sleep(period)
+        t.sleep(period)
 
 
-# mark_values = {2015: '2015', 2016: '2016', 2017: "2017", 2018: "2018", 2019: "2019", 2020: "2020", 2021: "2021"}
+def date_to_unix(datearg):
+    """convert date string into dateimeobject"""
+    datearg = dt.datetime.strptime(datearg, "%Y-%m-%d").timetuple()
+    datearg = t.mktime(datearg)
+    return datearg
 
+
+def unix_to_date(unix):
+    """This function will convert datetime object to unix timestamp"""
+    return dt.datetime.fromtimestamp(unix).date()
+
+
+def create_steps(date_min, date_max):
+    """This function will return a dictionary containing X dates split across even intervals"""
+    length_in_sec = date_max - date_min
+    intervals = 6
+    step = length_in_sec/intervals
+
+    day_steps = {int(date_min + step*interval): str(unix_to_date(date_min + step*interval))
+                 for interval in range(0, intervals + 1)}
+    print(day_steps)
+    return day_steps
+
+
+dateA = "2019-01-01"
+dateB = "2020-06-11"
 
 get_new_data()
 app.layout = html.Div([
@@ -78,11 +104,12 @@ app.layout = html.Div([
 
     html.Div([
         dcc.RangeSlider(id='slider',
-                        min=2015,
-                        max=2021,
-                        step=0.1,
-                        value=[2017, 2019],
-                        tooltip={'always_visible': True, 'placement': 'bottom'}
+                        min=date_to_unix(dateA),
+                        max=date_to_unix(dateB),
+                        marks=create_steps(date_to_unix(dateA), date_to_unix(dateB)),
+                        step=1,
+                        value=[date_to_unix(dateA), date_to_unix(dateB)],
+                        tooltip={'always_visible': False, 'placement': 'bottom'}
                         )
     ], id='myslider'),
 
