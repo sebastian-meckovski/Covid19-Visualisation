@@ -59,7 +59,7 @@ def unix_to_date(unix):
 def create_steps(date_min_arg, date_max_arg):
     """This function will return a dictionary containing X dates split across even intervals"""
     length_in_sec = date_max_arg - date_min_arg
-    intervals = 6
+    intervals = 4
     step = length_in_sec/intervals
 
     day_steps = {int(date_min_arg + step * interval): unix_to_date(date_min_arg + step * interval)
