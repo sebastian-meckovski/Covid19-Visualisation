@@ -96,7 +96,8 @@ app.layout = html.Div([
     html.Div([
 
         dcc.Graph(id='feature-graphic',
-                  config={'displayModeBar': False}
+                  config={'displayModeBar': False,
+                          'staticPlot': True}
                   ),
 
         ], id='content1'),
@@ -127,7 +128,8 @@ app.layout = html.Div([
     html.Div([
 
         dcc.Graph(id='feature-graphic2',
-                  config={'displayModeBar': False})
+                  config={'displayModeBar': False,
+                          'staticPlot': True})
 
     ], id='content2'),
 
