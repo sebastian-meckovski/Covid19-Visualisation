@@ -20,8 +20,8 @@ server = app.server
 
 def openurl():
     """this function will send a request to 'url' and do nothing after that"""
-    url = 'https://covid19-visualisation-seb.herokuapp.com/'
-    # url = 'https://www.google.com/'
+    # url = 'https://covid19-visualisation-seb.herokuapp.com/'
+    url = 'https://www.google.com/'
     print('opening URL')
     urllib2.urlopen(url)
     print('URL loaded')
@@ -31,8 +31,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     print('data loaded')
 
 
@@ -53,25 +53,24 @@ def date_to_unix(datearg):
 
 def unix_to_date(unix):
     """This function will convert datetime object to unix timestamp"""
-    return dt.datetime.fromtimestamp(unix).date()
+    return str(dt.datetime.fromtimestamp(unix).date())
 
 
-def create_steps(date_min, date_max):
+def create_steps(date_min_arg, date_max_arg):
     """This function will return a dictionary containing X dates split across even intervals"""
-    length_in_sec = date_max - date_min
+    length_in_sec = date_max_arg - date_min_arg
     intervals = 6
     step = length_in_sec/intervals
 
-    day_steps = {int(date_min + step*interval): str(unix_to_date(date_min + step*interval))
+    day_steps = {int(date_min_arg + step * interval): unix_to_date(date_min_arg + step * interval)
                  for interval in range(0, intervals + 1)}
-    print(day_steps)
     return day_steps
 
 
-dateA = "2019-01-01"
-dateB = "2020-06-11"
-
 get_new_data()
+
+date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
+date_max = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
 app.layout = html.Div([
 
     html.Div([
@@ -104,11 +103,11 @@ app.layout = html.Div([
 
     html.Div([
         dcc.RangeSlider(id='slider',
-                        min=date_to_unix(dateA),
-                        max=date_to_unix(dateB),
-                        marks=create_steps(date_to_unix(dateA), date_to_unix(dateB)),
+                        min=date_to_unix(date_min),
+                        max=date_to_unix(date_max),
+                        marks=create_steps(date_to_unix(date_min), date_to_unix(date_max)),
                         step=1,
-                        value=[date_to_unix(dateA), date_to_unix(dateB)],
+                        value=[date_to_unix(date_min), date_to_unix(date_max)],
                         tooltip={'always_visible': False, 'placement': 'bottom'}
                         )
     ], id='myslider'),
@@ -148,21 +147,21 @@ app.layout = html.Div([
 
 
 @app.callback(Output('feature-graphic', 'figure'),
-              [Input('country_selected', 'value')]
+              [Input('country_selected', 'value')],
+              [Input('slider', 'value')]
               )
-def update_graph1(country_names):
+def update_graph1(country_names, date_range):
     scatter_list = []
+    print(date_range)
     for i in range(len(country_names)):
-        country_df = df[df['location'] == country_names[i]]
+        country_df = df[(df['location'] == country_names[i]) & (df['date'] >= unix_to_date(date_range[0])) &
+                        (df['date'] <= unix_to_date(date_range[1]))]
         country_vac = country_df.dropna(subset=['total_vaccinations'])
         fig = go.Scatter(x=country_vac['date'],
                          y=country_vac['people_vaccinated_per_hundred'],
                          mode='lines+markers',
                          name=country_names[i],
-                         )                                                          # printing min and max of the dates
-        print(country_names[i], "min date: ", min(country_vac['date']))             # as we will need them later when
-        print(country_names[i], "max date: ", max(country_vac['date']))             # when building rangeslider
-
+                         )
         scatter_list.append(fig)
 
     return {'data': scatter_list,
