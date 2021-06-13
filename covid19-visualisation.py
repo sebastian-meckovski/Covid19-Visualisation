@@ -44,11 +44,11 @@ def get_new_data_every(period=1200):
         t.sleep(period)
 
 
-def date_to_unix(datearg):
-    """convert date string into dateimeobject"""
-    datearg = dt.datetime.strptime(datearg, "%Y-%m-%d").timetuple()
-    datearg = t.mktime(datearg)
-    return datearg
+def date_to_unix(date_arg):
+    """convert date string into datetime object"""
+    date_arg = dt.datetime.strptime(date_arg, "%Y-%m-%d").timetuple()
+    date_arg = t.mktime(date_arg)
+    return date_arg
 
 
 def unix_to_date(unix):
@@ -59,10 +59,11 @@ def unix_to_date(unix):
 def create_steps(date_min_arg, date_max_arg):
     """This function will return a dictionary containing X dates split across even intervals"""
     length_in_sec = date_max_arg - date_min_arg
-    intervals = 4
+    intervals = 6
     step = length_in_sec/intervals
 
-    day_steps = {int(date_min_arg + step * interval): unix_to_date(date_min_arg + step * interval)
+    day_steps = {int(date_min_arg + step * interval): {'label': unix_to_date(date_min_arg + step * interval),
+                                                       'style': {'font-size': '10px'}}
                  for interval in range(0, intervals + 1)}
     return day_steps
 
@@ -109,7 +110,7 @@ app.layout = html.Div([
                         marks=create_steps(date_to_unix(date_min), date_to_unix(date_max)),
                         step=1,
                         value=[date_to_unix(date_min), date_to_unix(date_max)],
-                        tooltip={'always_visible': False, 'placement': 'bottom'}
+                        # tooltip={'always_visible': False, 'placement': 'bottom'}
                         )
     ], id='myslider'),
 
@@ -141,7 +142,7 @@ app.layout = html.Div([
     ], id='content3'),
 
     html.Div([
-        html.H2("page under connstruction")
+        html.H2("page under construction")
     ], id='content4')
 
 
@@ -158,9 +159,9 @@ def update_graph1(country_names, date_range):
     for i in range(len(country_names)):
         country_df = df[(df['location'] == country_names[i]) & (df['date'] >= unix_to_date(date_range[0])) &
                         (df['date'] <= unix_to_date(date_range[1]))]
-        country_vac = country_df.dropna(subset=['total_vaccinations'])
-        fig = go.Scatter(x=country_vac['date'],
-                         y=country_vac['people_vaccinated_per_hundred'],
+        country_df = country_df.dropna(subset=['people_vaccinated_per_hundred'])
+        fig = go.Scatter(x=country_df['date'],
+                         y=country_df['people_vaccinated_per_hundred'],
                          mode='lines+markers',
                          name=country_names[i],
                          )
@@ -168,13 +169,16 @@ def update_graph1(country_names, date_range):
 
     return {'data': scatter_list,
 
-            'layout': go.Layout(title='Percentage of people who received at least one dose of vaccine',
+            'layout': go.Layout(title={'text': 'Percentage of people who received at least one dose of vaccine',
+                                       'y': 0.96, 'font_size': 12},
                                 yaxis={'anchor': 'free', 'position': 0.05,
                                        'ticksuffix': '%'},
-                                legend={'orientation': 'h',  'yanchor': 'bottom', 'x': 0, 'y': 1},
+                                legend={'orientation': 'v',  'yanchor': 'middle', 'x': 0.055, 'y': 0.9,
+                                        'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
+                                        },
                                 margin=dict(l=5, r=5, t=20, b=30),
                                 plot_bgcolor='#bfd8d5',
-                                paper_bgcolor='#bfd8d5'
+                                paper_bgcolor='#bfd8d5',
                                 )
             }
 
