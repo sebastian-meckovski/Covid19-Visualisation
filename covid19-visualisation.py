@@ -100,9 +100,13 @@ app.layout = html.Div([
         dcc.Graph(id='feature-graphic',
                   config={'displayModeBar': False,
                           'staticPlot': True}
-                  ),
+                  )], id='content1'),
 
-        ], id='content1'),
+    # html.Div([
+    #     dcc.Graph(id='feature-graphic-2nd-dose',
+    #               config={'displayModeBar': False,
+    #                       'staticPlot': True}
+    #               )], id='graph-2nd-dose'),
 
     html.Div([
         dcc.RangeSlider(id='slider',
@@ -150,10 +154,11 @@ app.layout = html.Div([
 ], className='container')
 
 
-@app.callback(Output('feature-graphic', 'figure'),
-              [Input('country_selected', 'value')],
-              [Input('slider', 'value')]
-              )
+@app.callback(
+        Output('feature-graphic', 'figure'),
+        # Output('feature-graphic-2nd-dose', 'figure'),
+        Input('country_selected', 'value'),
+        Input('slider', 'value'))
 def update_graph1(country_names, date_range):
     scatter_list = []
     print(date_range)
