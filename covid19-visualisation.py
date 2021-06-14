@@ -30,9 +30,11 @@ def openurl():
 
 def get_new_data():
     """Updates the global variable 'df' with new data"""
-    global df
+    global df, date_min, date_max
     # df = pd.read_csv('owid-covid-data.csv')
     df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
+    date_max = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
     print('data loaded')
 
 
@@ -70,8 +72,7 @@ def create_steps(date_min_arg, date_max_arg):
 
 get_new_data()
 
-date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
-date_max = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
+
 app.layout = html.Div([
 
     html.Div([
@@ -165,6 +166,7 @@ def update_graph1(country_names, date_range):
                          mode='lines+markers',
                          name=country_names[i],
                          )
+
         scatter_list.append(fig)
 
     return {'data': scatter_list,
@@ -180,6 +182,7 @@ def update_graph1(country_names, date_range):
                                 plot_bgcolor='#bfd8d5',
                                 paper_bgcolor='#bfd8d5',
                                 )
+
             }
 
 
