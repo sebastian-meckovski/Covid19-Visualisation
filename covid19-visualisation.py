@@ -103,8 +103,8 @@ app.layout = html.Div([
                   )], id='content1'),
 
     # html.Div([
-    #     dcc.Graph(id='feature-graphic-2nd-dose',
-    #               config={'displayModeBar': False,
+    #     dcc.Graph(id='feature-graphic-2nd-dose',          # this is the second graph I'm trying to add
+    #               config={'displayModeBar': False,        # but it doesn't work. callback is on line 159
     #                       'staticPlot': True}
     #               )], id='graph-2nd-dose'),
 
@@ -156,7 +156,7 @@ app.layout = html.Div([
 
 @app.callback(
         Output('feature-graphic', 'figure'),
-        # Output('feature-graphic-2nd-dose', 'figure'),
+        # Output('feature-graphic-2nd-dose', 'figure'),     #he is the Output that will cause an error
         Input('country_selected', 'value'),
         Input('slider', 'value'))
 def update_graph1(country_names, date_range):

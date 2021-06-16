@@ -24,7 +24,7 @@ body {
   grid-template-areas:
     "navbar navbar"
     "dropdown0 dropdown0"
-    "content1 content1"
+    "content1 graph-2nd-dose"
     ". dropdown1"
     "myslider ."
     "content2 content3"
