@@ -10,7 +10,8 @@ body {
 
 
 #country_selected2.VirtualizedSelectFocusedOption{
-  background-color: #dfdfdf;
+  background-color: #dfdfdf
+  graph-2nd-dose;
 } */
 
 
@@ -24,7 +25,7 @@ body {
   grid-template-areas:
     "navbar navbar"
     "dropdown0 dropdown0"
-    "content1 graph-2nd-dose"
+    "content1 content1"
     ". dropdown1"
     "myslider ."
     "content2 content3"
