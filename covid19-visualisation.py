@@ -117,6 +117,11 @@ app.layout = html.Div([
                         value=[date_to_unix(date_min), date_to_unix(date_max)],
                         # tooltip={'always_visible': False, 'placement': 'bottom'}
                         )
+
+        # these RangeSlider arguments become static and won't update. Basically, the df variable updates once every
+        # 24 hours on the server. and RangeSlider values need to be updated too. but they become static here. how
+        # do I solve it?
+
     ], id='myslider'),
 
     html.Div([
