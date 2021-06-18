@@ -38,7 +38,7 @@ def get_new_data():
     print('data loaded')
 
 
-def get_new_data_every(period=1200):
+def get_new_data_every(period=60):
     """Update the data every 'period' seconds"""
     while True:
         get_new_data()
@@ -103,25 +103,14 @@ app.layout = html.Div([
                   )], id='content1'),
 
     # html.Div([
-    #     dcc.Graph(id='feature-graphic-2nd-dose',          # this is the second graph I'm trying to add
-    #               config={'displayModeBar': False,        # but it doesn't work. callback is on line 159
+    #     dcc.Graph(id='feature-graphic-2nd-dose',
+    #               config={'displayModeBar': False,
     #                       'staticPlot': True}
     #               )], id='graph-2nd-dose'),
 
     html.Div([
         dcc.RangeSlider(id='slider',
-                        min=date_to_unix(date_min),
-                        max=date_to_unix(date_max),
-                        marks=create_steps(date_to_unix(date_min), date_to_unix(date_max)),
-                        step=1,
-                        value=[date_to_unix(date_min), date_to_unix(date_max)],
-                        # tooltip={'always_visible': False, 'placement': 'bottom'}
-                        )
-
-        # these RangeSlider arguments become static and won't update. Basically, the df variable updates once every
-        # 24 hours on the server. and RangeSlider values need to be updated too. but they become static here. how
-        # do I solve it?
-
+                        step=1)
     ], id='myslider'),
 
     html.Div([
@@ -153,7 +142,12 @@ app.layout = html.Div([
 
     html.Div([
         html.H2("page under construction")
-    ], id='content4')
+    ], id='content4'),
+
+    html.Div([
+        dcc.Input(id='empty-field',
+                  style={'display': 'none'})
+    ])
 
 
 ], className='container')
@@ -166,7 +160,6 @@ app.layout = html.Div([
         Input('slider', 'value'))
 def update_graph1(country_names, date_range):
     scatter_list = []
-    print(date_range)
     for i in range(len(country_names)):
         country_df = df[(df['location'] == country_names[i]) & (df['date'] >= unix_to_date(date_range[0])) &
                         (df['date'] <= unix_to_date(date_range[1]))]
@@ -226,6 +219,21 @@ def update_piechart(country_name):
                       paper_bgcolor='#bfd8d5',
                       margin=dict(t=30, b=30, l=30, r=30))
     return fig
+
+
+@app.callback(Output('slider', 'min'),
+              Output('slider', 'max'),
+              Output('slider', 'marks'),
+              Output('slider', 'value'),
+              [Input('empty-field', 'value')])
+def update_slider(empty_value):
+    min_arg = date_to_unix(date_min),
+    max_arg = date_to_unix(date_max),
+    marks = create_steps(date_to_unix(date_min), date_to_unix(date_max)),
+    value = [date_to_unix(date_min), date_to_unix(date_max)],
+    empty_value = None
+    print('values updated from update slider function')
+    return min_arg[0], max_arg[0], marks[0], value[0]
 
 
 executor = ThreadPoolExecutor(max_workers=1)
