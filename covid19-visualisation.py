@@ -102,11 +102,11 @@ app.layout = html.Div([
                           'staticPlot': True}
                   )], id='content1'),
 
-    # html.Div([
-    #     dcc.Graph(id='feature-graphic-2nd-dose',
-    #               config={'displayModeBar': False,
-    #                       'staticPlot': True}
-    #               )], id='graph-2nd-dose'),
+    html.Div([
+        dcc.Graph(id='feature-graphic-2nd-dose',
+                  config={'displayModeBar': False,
+                          'staticPlot': True}
+                  )], id='graph-2nd-dose'),
 
     html.Div([
         dcc.RangeSlider(id='slider',
@@ -155,7 +155,7 @@ app.layout = html.Div([
 
 @app.callback(
         Output('feature-graphic', 'figure'),
-        # Output('feature-graphic-2nd-dose', 'figure'),     #he is the Output that will cause an error
+        Output('feature-graphic-2nd-dose', 'figure'),     #he is the Output that will cause an error
         Input('country_selected', 'value'),
         Input('slider', 'value'))
 def update_graph1(country_names, date_range):
@@ -179,6 +179,21 @@ def update_graph1(country_names, date_range):
                                 yaxis={'anchor': 'free', 'position': 0.05,
                                        'ticksuffix': '%'},
                                 legend={'orientation': 'v',  'yanchor': 'middle', 'x': 0.055, 'y': 0.9,
+                                        'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
+                                        },
+                                margin=dict(l=5, r=5, t=20, b=30),
+                                plot_bgcolor='#bfd8d5',
+                                paper_bgcolor='#bfd8d5',
+                                )
+
+            }, \
+           {'data': scatter_list,
+
+            'layout': go.Layout(title={'text': 'Percentage of people who received at least one dose of vaccine',
+                                       'y': 0.96, 'font_size': 12},
+                                yaxis={'anchor': 'free', 'position': 0.05,
+                                       'ticksuffix': '%'},
+                                legend={'orientation': 'v',  'yanchor': 'top', 'x': 0.055, 'y': 0.96,
                                         'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
                                         },
                                 margin=dict(l=5, r=5, t=20, b=30),
