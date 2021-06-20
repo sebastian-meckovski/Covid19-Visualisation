@@ -154,7 +154,7 @@ layout_settings = go.Layout(title={'text': 'Percentage of people who received at
                                    'y': 0.96, 'font_size': 12},
                             yaxis={'anchor': 'free', 'position': 0.05,
                                    'ticksuffix': '%'},
-                            legend={'orientation': 'v',  'yanchor': 'middle', 'x': 0.055, 'y': 0.9,
+                            legend={'orientation': 'v',  'yanchor': 'top', 'x': 0.055, 'y': 0.96,
                                     'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
                                     },
                             margin=dict(l=5, r=5, t=20, b=30),

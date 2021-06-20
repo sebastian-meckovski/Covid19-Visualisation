@@ -81,15 +81,17 @@ body {
 
 @media only screen and (max-width: 500px) {
   .container {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: 0.1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
     grid-template-areas:
       "navbar"
       "dropdown0"
       "content1"
+      "feature-graphic-2nd-dose"
       "dropdown1"
       "content2"
       "content3"
       "content4";
   }
 }
+
