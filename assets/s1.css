@@ -2,19 +2,6 @@ body {
   background-color: #f4f3f3;
 }
 
-
-/* #country_selected.VirtualizedSelectFocusedOption{
-  background-color: #dfdfdf;
-}
-
-
-
-#country_selected2.VirtualizedSelectFocusedOption{
-  background-color: #dfdfdf
-  graph-2nd-dose;
-} */
-
-
 .container {
   display: grid;
   height: 100vh;

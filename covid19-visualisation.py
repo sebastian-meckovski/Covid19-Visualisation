@@ -150,9 +150,7 @@ app.layout = html.Div([
 
 ], className='container')
 
-layout_settings = go.Layout(title={'text': 'Percentage of people who received at least one dose of vaccine',
-                                   'y': 0.96, 'font_size': 12},
-                            yaxis={'anchor': 'free', 'position': 0.05,
+layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                                    'ticksuffix': '%'},
                             legend={'orientation': 'v',  'yanchor': 'top', 'x': 0.055, 'y': 0.96,
                                     'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
@@ -168,27 +166,29 @@ layout_settings = go.Layout(title={'text': 'Percentage of people who received at
         Input('country_selected', 'value'),
         Input('slider', 'value'))
 def update_graph1(country_names, date_range):
-    scatter_list = []
+    scatter_list_1st_vacc = []
+    scatter_list_2st_vacc = []
     for i in range(len(country_names)):
         country_df = df[(df['location'] == country_names[i]) & (df['date'] >= unix_to_date(date_range[0])) &
                         (df['date'] <= unix_to_date(date_range[1]))]
         country_df = country_df.dropna(subset=['people_vaccinated_per_hundred'])
-        fig = go.Scatter(x=country_df['date'],
-                         y=country_df['people_vaccinated_per_hundred'],
-                         mode='lines+markers',
-                         name=country_names[i],
-                         )
+        fig1 = go.Scatter(x=country_df['date'],
+                          y=country_df['people_vaccinated_per_hundred'],
+                          mode='lines+markers',
+                          name=country_names[i],
+                          )
 
-        scatter_list.append(fig)
+        fig2 = go.Scatter(x=country_df['date'],
+                          y=country_df['people_fully_vaccinated_per_hundred'],
+                          mode='lines+markers',
+                          name=country_names[i],
+                          )
 
-    return {'data': scatter_list,
+        scatter_list_1st_vacc.append(fig1)
+        scatter_list_2st_vacc.append(fig2)
 
-            'layout': layout_settings
-            }, \
-           {'data': scatter_list,
-
-            'layout': layout_settings
-            }
+    return {'data': scatter_list_1st_vacc, 'layout': layout_settings},\
+           {'data': scatter_list_2st_vacc, 'layout': layout_settings}
 
 
 @app.callback(Output('feature-graphic2', 'figure'),
