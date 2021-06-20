@@ -22,9 +22,7 @@ def openurl():
     """this function will send a request to 'url' and do nothing after that"""
     url = 'https://covid19-visualisation-seb.herokuapp.com/'
     # url = 'https://www.google.com/'
-    print('opening URL')
     urllib2.urlopen(url)
-    print('URL loaded')
     pass
 
 
@@ -38,7 +36,7 @@ def get_new_data():
     print('data loaded')
 
 
-def get_new_data_every(period=60):
+def get_new_data_every(period=1200):
     """Update the data every 'period' seconds"""
     while True:
         get_new_data()
@@ -152,10 +150,21 @@ app.layout = html.Div([
 
 ], className='container')
 
+layout_settings = go.Layout(title={'text': 'Percentage of people who received at least one dose of vaccine',
+                                   'y': 0.96, 'font_size': 12},
+                            yaxis={'anchor': 'free', 'position': 0.05,
+                                   'ticksuffix': '%'},
+                            legend={'orientation': 'v',  'yanchor': 'middle', 'x': 0.055, 'y': 0.9,
+                                    'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
+                                    },
+                            margin=dict(l=5, r=5, t=20, b=30),
+                            plot_bgcolor='#bfd8d5',
+                            paper_bgcolor='#bfd8d5')
+
 
 @app.callback(
         Output('feature-graphic', 'figure'),
-        Output('feature-graphic-2nd-dose', 'figure'),     #he is the Output that will cause an error
+        Output('feature-graphic-2nd-dose', 'figure'),
         Input('country_selected', 'value'),
         Input('slider', 'value'))
 def update_graph1(country_names, date_range):
@@ -174,33 +183,11 @@ def update_graph1(country_names, date_range):
 
     return {'data': scatter_list,
 
-            'layout': go.Layout(title={'text': 'Percentage of people who received at least one dose of vaccine',
-                                       'y': 0.96, 'font_size': 12},
-                                yaxis={'anchor': 'free', 'position': 0.05,
-                                       'ticksuffix': '%'},
-                                legend={'orientation': 'v',  'yanchor': 'middle', 'x': 0.055, 'y': 0.9,
-                                        'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
-                                        },
-                                margin=dict(l=5, r=5, t=20, b=30),
-                                plot_bgcolor='#bfd8d5',
-                                paper_bgcolor='#bfd8d5',
-                                )
-
+            'layout': layout_settings
             }, \
            {'data': scatter_list,
 
-            'layout': go.Layout(title={'text': 'Percentage of people who received at least one dose of vaccine',
-                                       'y': 0.96, 'font_size': 12},
-                                yaxis={'anchor': 'free', 'position': 0.05,
-                                       'ticksuffix': '%'},
-                                legend={'orientation': 'v',  'yanchor': 'top', 'x': 0.055, 'y': 0.96,
-                                        'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
-                                        },
-                                margin=dict(l=5, r=5, t=20, b=30),
-                                plot_bgcolor='#bfd8d5',
-                                paper_bgcolor='#bfd8d5',
-                                )
-
+            'layout': layout_settings
             }
 
 
