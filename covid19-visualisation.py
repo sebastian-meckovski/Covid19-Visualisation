@@ -91,25 +91,25 @@ app.layout = html.Div([
                         'background-color': '#dfdfdf'
                     }
                 ),
-    ], id='dropdown0'),
+    ], id='dropdown1'),
 
     html.Div([
 
         dcc.Graph(id='feature-graphic',
                   config={'displayModeBar': False,
                           'staticPlot': True}
-                  )], id='content1'),
+                  )], id='graph1'),
 
     html.Div([
         dcc.Graph(id='feature-graphic-2nd-dose',
                   config={'displayModeBar': False,
                           'staticPlot': True}
-                  )], id='graph-2nd-dose'),
+                  )], id='graph2'),
 
     html.Div([
         dcc.RangeSlider(id='slider',
                         step=1)
-    ], id='myslider'),
+    ], id='slider1'),
 
     html.Div([
 
@@ -121,7 +121,7 @@ app.layout = html.Div([
                 'color': 'black',
                 'background-color': '#dfdfdf'
             })
-    ], id='dropdown1'),
+    ], id='dropdown2'),
     
     html.Div([
 
@@ -129,18 +129,18 @@ app.layout = html.Div([
                   config={'displayModeBar': False,
                           'staticPlot': True})
 
-    ], id='content2'),
+    ], id='graph3'),
 
     html.Div([
 
         dcc.Graph(id='feature-graphic3',
                   config={'displayModeBar': False})
 
-    ], id='content3'),
+    ], id='graph4'),
 
     html.Div([
         html.H2("page under construction")
-    ], id='content4'),
+    ], id='graph5'),
 
     html.Div([
         dcc.Input(id='empty-field',
