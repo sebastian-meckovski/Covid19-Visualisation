@@ -50,8 +50,14 @@ body {
 }
 
 #graph6{
+    grid-area: 6 / 5 / 7 / -1;
+}
+
+#footer{
     grid-area: 8 / 1 / 9 / -1;
 }
+
+
 
 @media only screen and (max-width: 500px) {
   .container {
