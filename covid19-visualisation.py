@@ -212,6 +212,12 @@ def update_graph1(country_names, date_range):
 def update_graph2(country_name):
     country_df = df[df['location'] == country_name]
     fig = px.bar(country_df, x='date', y='new_cases')
+
+    fig.add_trace(go.Indicator(
+        mode="number+delta",        #indicator test
+        value=500
+    ))
+
     fig.update_layout(title={'text': 'Total cases per day', 'y': .85, 'x': .1},
                       xaxis=None, yaxis={'title': 'Daily Cases', 'anchor': 'free', 'position': 0.05},
                       margin=dict(l=5, r=5, t=20, b=20),
