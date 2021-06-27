@@ -20,8 +20,8 @@ server = app.server
 
 def openurl():
     """this function will send a request to 'url' and do nothing after that"""
-    url = 'https://covid19-visualisation-seb.herokuapp.com/'
-    # url = 'https://www.google.com/'
+    # url = 'https://covid19-visualisation-seb.herokuapp.com/'
+    url = 'https://www.google.com/'
     urllib2.urlopen(url)
     pass
 
@@ -29,8 +29,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min, date_max
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
     date_max = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
     print('data loaded')
@@ -139,13 +139,20 @@ app.layout = html.Div([
     ], id='graph4'),
 
     html.Div([
+        dcc.Graph(id='feature-grapic4')
+    ], id="graph5"),
+
+    html.Div([
         html.H2("page under construction")
-    ], id='graph5'),
+    ], id='graph6'),
+
 
     html.Div([
         dcc.Input(id='empty-field',
                   style={'display': 'none'})
-    ])
+    ]),
+
+
 
 
 ], className='container')

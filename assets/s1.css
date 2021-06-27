@@ -7,68 +7,54 @@ body {
   height: 100vh;
   max-width: 1200px;
   margin: auto;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto;
-  grid-template-areas:
-    "navbar navbar"
-    "dropdown1 dropdown1"
-    "graph1 graph2"
-    ". dropdown2"
-    "slider1 ."
-    "graph3 graph4"
-    "graph5 graph5";
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-gap: 3px;
 }
 
+#navbar{
+  grid-column: 1/-1;
+}
+
 #dropdown1{
-  grid-column: 1/3;
-  grid-row: 2
+  grid-area: 2 / 1 / 3 / -1;
 }
 
-#dropdown2{
-  grid-column: 1/3;
-  grid-row: 5;
+#graph1{
+  grid-area: 3 / 1 / 4 / 4;
 }
 
+#graph2{
+  grid-area: 3 / 4 / 4 / 7;
+}
 
 #slider1{
-  /*border: black solid 2px;*/
-  grid-column: 1/3;
-  grid-row: 4;
+  grid-area: 4 / 1 / 5 / -1;
   padding: 15px;
   background-color: #bfd8d5;
 }
 
-
-#navbar{
-    border-radius: 10px;
-    grid-area: navbar;
-} 
-
-#content1{
-    border-radius: 10px;
-    grid-area: content1;
+#dropdown2{
+  grid-area: 5 / 1 / 6 / -1;
 }
 
-
-#content2{
-    border-radius: 10px;
-    grid-area: content2;
+#graph3{
+  grid-area: 7 / 1 / 8 / -1;
 }
 
-#content3{
-    border-radius: 10px;
-    grid-area: content3;
+#graph4{
+  grid-area: 6 / 1 / 7 / 3;
 }
 
-#content4{
-    border-radius: 10px;
-    grid-area: content4;
+#graph5{
+  grid-area: 6 / 3 / 7 / 5;
+}
+
+#graph6{
+    grid-area: 8 / 1 / 9 / -1;
 }
 
 @media only screen and (max-width: 500px) {
   .container {
-    grid-template-columns: 500px;
   }
 }
 
