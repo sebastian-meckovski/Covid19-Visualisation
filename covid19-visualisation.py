@@ -231,16 +231,25 @@ def update_graph2(country_name):
               [Input('country_selected2', 'value')]
               )
 def update_piechart(country_name):
-    selected_country_vac = df[df['location'] == country_name]['total_vaccinations_per_hundred'].max()
-    chart_values = [selected_country_vac, 100 - selected_country_vac]
-    labels = ['Vaccinated population', 'Non vaccinated population']
+    current_country = df[df['location'] == country_name]
 
-    fig = go.Figure(data=[go.Pie(labels=labels,
-                                 values=chart_values,
-                                 title='Vaccinated population percentage')])
+    max_1vac = current_country['people_vaccinated_per_hundred'].max()
+    max_2vac = current_country['people_fully_vaccinated_per_hundred'].max()
+
+    chart_values = [100 - max_1vac, max_1vac - max_2vac, max_2vac]
+    labels = ['Not vaccinated', 'First Dose', 'Fully Vaccinated']
+
+    fig = go.Figure(go.Pie(labels=labels,
+                           hole=.43,
+                           values=chart_values,
+                           textinfo='label+percent',
+                           showlegend=False,
+                           hoverinfo='skip'
+                           ))
+
     fig.update_layout(plot_bgcolor='#bfd8d5',
                       paper_bgcolor='#bfd8d5',
-                      margin=dict(t=30, b=30, l=30, r=30))
+                      margin=dict(t=15, b=15, l=15, r=15))
     return fig
 
 
