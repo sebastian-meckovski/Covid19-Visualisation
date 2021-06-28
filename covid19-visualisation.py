@@ -214,7 +214,7 @@ def update_graph2(country_name):
     fig = px.bar(country_df, x='date', y='new_cases')
 
     fig.add_trace(go.Indicator(
-        mode="number+delta",        #indicator test
+        mode="number+delta",        #indicator test1
         value=500
     ))
 
