@@ -29,8 +29,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min, date_max
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
     date_max = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
     print('data loaded')
@@ -141,12 +141,12 @@ app.layout = html.Div([
     ], id='graph4'),
 
     html.Div([
-        dcc.Graph(id='feature-grapic4',
+        dcc.Graph(id='feature-grapic5',
                   style={'height': 395})
     ], id="graph5"),
 
     html.Div([
-        dcc.Graph(id='feature-grapic5',
+        dcc.Graph(id='feature-grapic6',
                   style={'height': 395})
     ], id="graph6"),
 
@@ -267,6 +267,15 @@ def update_slider(empty_value):
     print('values updated from update slider function')
     return min_arg[0], max_arg[0], marks[0], value[0]
 
+
+@app.callback(Output('feature-grapic5', 'figure'),
+              [Input('country_selected2', 'value')])
+def update_graph5(country_name):
+    print(country_name)
+    country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
+    fig = px.bar(country_df, x='date', y='new_cases')   # every single style elemnt except bars
+
+    return fig
 
 executor = ThreadPoolExecutor(max_workers=1)
 executor.submit(get_new_data_every)
