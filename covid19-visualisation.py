@@ -29,8 +29,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min, date_max
-    df = pd.read_csv('owid-covid-data.csv')
-    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    # df = pd.read_csv('owid-covid-data.csv')
+    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
     date_max = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
     print('data loaded')
@@ -213,11 +213,6 @@ def update_graph2(country_name):
     country_df = df[df['location'] == country_name]
     fig = px.bar(country_df, x='date', y='new_cases')
 
-    fig.add_trace(go.Indicator(
-        mode="number+delta",        #indicator test1
-        value=500
-    ))
-
     fig.update_layout(title={'text': 'Total cases per day', 'y': .85, 'x': .1},
                       xaxis=None, yaxis={'title': 'Daily Cases', 'anchor': 'free', 'position': 0.05},
                       margin=dict(l=5, r=5, t=20, b=20),
@@ -273,9 +268,19 @@ def update_slider(empty_value):
 def update_graph5(country_name):
     print(country_name)
     country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
-    fig = px.bar(country_df, x='date', y='new_cases')   # every single style elemnt except bars
+    fig = px.bar(country_df.tail(30), x='date', y='new_cases')   # every single style elemnt except bars
+
+    print(country_df.tail(30).iloc[1]['new_cases'])
+    print(country_df.tail(30).iloc[29]['new_cases'])
+
+    fig.add_trace(go.Indicator(
+        mode='number+delta',
+        value=country_df.tail(30).iloc[29]['new_cases'],
+        delta={'reference': country_df.tail(30).iloc[1]['new_cases'], 'relative': True}
+    ))
 
     return fig
+
 
 executor = ThreadPoolExecutor(max_workers=1)
 executor.submit(get_new_data_every)
