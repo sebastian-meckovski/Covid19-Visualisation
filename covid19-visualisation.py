@@ -142,12 +142,14 @@ app.layout = html.Div([
 
     html.Div([
         dcc.Graph(id='feature-grapic5',
-                  style={'height': 395})
+                  style={'height': 395},
+                  config={'displayModeBar': False, 'staticPlot': True})
     ], id="graph5"),
 
     html.Div([
         dcc.Graph(id='feature-grapic6',
-                  style={'height': 395})
+                  style={'height': 395},
+                  config={'displayModeBar': False, })
     ], id="graph6"),
 
     html.Div([
@@ -263,6 +265,9 @@ def update_slider(empty_value):
     return min_arg[0], max_arg[0], marks[0], value[0]
 
 
+bar_chart_style = dict(showgrid=False, showticklabels=False, title=None)
+
+
 @app.callback(Output('feature-grapic5', 'figure'),
               [Input('country_selected2', 'value')])
 def update_graph5(country_name):
@@ -270,13 +275,13 @@ def update_graph5(country_name):
     country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
     fig = px.bar(country_df.tail(30), x='date', y='new_cases')   # every single style elemnt except bars
 
-    print(country_df.tail(30).iloc[1]['new_cases'])
-    print(country_df.tail(30).iloc[29]['new_cases'])
+    fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0))
 
     fig.add_trace(go.Indicator(
         mode='number+delta',
         value=country_df.tail(30).iloc[29]['new_cases'],
-        delta={'reference': country_df.tail(30).iloc[1]['new_cases'], 'relative': True}
+        delta={'reference': country_df.tail(30).iloc[1]['new_cases'], 'relative': True,
+               'increasing': {'color': 'red'}, 'decreasing': {'color': 'green'}},
     ))
 
     return fig
