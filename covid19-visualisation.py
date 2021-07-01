@@ -149,7 +149,7 @@ app.layout = html.Div([
     html.Div([
         dcc.Graph(id='feature-grapic6',
                   style={'height': 395},
-                  config={'displayModeBar': False, })
+                  config={'displayModeBar': False, 'staticPlot': True})
     ], id="graph6"),
 
     html.Div([
@@ -281,6 +281,25 @@ def update_graph5(country_name):
         mode='number+delta',
         value=country_df.tail(30).iloc[29]['new_cases'],
         delta={'reference': country_df.tail(30).iloc[1]['new_cases'], 'relative': True,
+               'increasing': {'color': 'red'}, 'decreasing': {'color': 'green'}},
+    ))
+
+    return fig
+
+
+@app.callback(Output('feature-grapic6', 'figure'),
+              [Input('country_selected2', 'value')])
+def update_graph6(country_name):
+    print(country_name)
+    country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
+    fig = px.bar(country_df.tail(30), x='date', y='new_deaths')   # every single style elemnt except bars
+
+    fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0))
+
+    fig.add_trace(go.Indicator(
+        mode='number+delta',
+        value=country_df.tail(30).iloc[29]['new_deaths'],
+        delta={'reference': country_df.tail(30).iloc[1]['new_deaths'], 'relative': True,
                'increasing': {'color': 'red'}, 'decreasing': {'color': 'green'}},
     ))
 
