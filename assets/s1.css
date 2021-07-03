@@ -17,6 +17,8 @@ body {
 
 #dropdown1{
   grid-area: 2 / 1 / 3 / -1;
+  border: #9db0ae solid 2px;
+  border-radius: 10px;
 }
 
 #graph1{
@@ -31,10 +33,14 @@ body {
   grid-area: 4 / 1 / 5 / -1;
   padding: 15px;
   background-color: #bfd8d5;
+  border: #9db0ae solid 2px;
+  border-radius: 10px;
 }
 
 #dropdown2{
   grid-area: 5 / 1 / 6 / -1;
+  border: #9db0ae solid 2px;
+  border-radius: 10px;
 }
 
 #graph3{

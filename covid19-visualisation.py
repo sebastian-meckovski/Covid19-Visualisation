@@ -70,6 +70,19 @@ def create_steps(date_min_arg, date_max_arg):
     return day_steps
 
 
+style = {
+    'border': '#9db0ae solid 2px',
+    'border-radius': '10px',
+    'background-color': '#bfd8d5',
+    'padding': '3px'}
+
+dropdown_style = {
+    'color': 'black',
+    'background-color': '#dfdfdf',
+    'border-radius': '7px'
+}
+
+
 get_new_data()
 
 
@@ -88,29 +101,29 @@ app.layout = html.Div([
                     options=[{'label': i, 'value': i} for i in df['location'].unique()],
                     multi=True,
                     value=['United Kingdom', 'United States'],
-                    style={
-                        'color': 'black',
-                        'background-color': '#dfdfdf'
-                    }
+                    style=dropdown_style
                 ),
     ], id='dropdown1'),
 
     html.Div([
 
-        dcc.Graph(id='feature-graphic',
+        dcc.Graph(id='feature-graphic1',
                   config={'displayModeBar': False,
-                          'staticPlot': True}
+                          'staticPlot': True},
+                  style=style
                   )], id='graph1'),
 
     html.Div([
         dcc.Graph(id='feature-graphic-2nd-dose',
                   config={'displayModeBar': False,
-                          'staticPlot': True}
+                          'staticPlot': True},
+                  style=style
                   )], id='graph2'),
 
     html.Div([
         dcc.RangeSlider(id='slider',
-                        step=1)
+                        step=1
+                        )
     ], id='slider1'),
 
     html.Div([
@@ -119,15 +132,13 @@ app.layout = html.Div([
             id='country_selected2',
             options=[{'label': i, 'value': i} for i in df['location'].unique()],
             value='United Kingdom',
-            style={
-                'color': 'black',
-                'background-color': '#dfdfdf'
-            })
+            style=dropdown_style)
     ], id='dropdown2'),
     
     html.Div([
 
         dcc.Graph(id='feature-graphic2',
+                  style=style,
                   config={'displayModeBar': False,
                           'staticPlot': True})
 
@@ -137,20 +148,20 @@ app.layout = html.Div([
 
         dcc.Graph(id='feature-graphic4',
                   config={'displayModeBar': False},
-                  style={'height': 395}
+                  style={'height': 395, **style},
                   )
 
     ], id='graph4'),
 
     html.Div([
         dcc.Graph(id='feature-grapic5',
-                  style={'height': 395},
+                  style={'height': 395, **style},
                   config={'displayModeBar': False, 'staticPlot': True})
     ], id="graph5"),
 
     html.Div([
         dcc.Graph(id='feature-grapic6',
-                  style={'height': 395},
+                  style={'height': 395, **style},
                   config={'displayModeBar': False, 'staticPlot': True})
     ], id="graph6"),
 
@@ -180,7 +191,7 @@ layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
 
 
 @app.callback(
-        Output('feature-graphic', 'figure'),
+        Output('feature-graphic1', 'figure'),
         Output('feature-graphic-2nd-dose', 'figure'),
         Input('country_selected', 'value'),
         Input('slider', 'value'))
@@ -277,7 +288,9 @@ def update_graph5(country_name):
     country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
     fig = px.bar(country_df.tail(30), x='date', y='new_cases')   # every single style elemnt except bars
 
-    fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0))
+    fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0),
+                      plot_bgcolor='#bfd8d5'
+                      )
 
     fig.add_trace(go.Indicator(
         mode='number+delta',
@@ -296,7 +309,8 @@ def update_graph6(country_name):
     country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
     fig = px.bar(country_df.tail(30), x='date', y='new_deaths')   # every single style elemnt except bars
 
-    fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0))
+    fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0),
+                      plot_bgcolor='#bfd8d5')
 
     fig.add_trace(go.Indicator(
         mode='number+delta',
