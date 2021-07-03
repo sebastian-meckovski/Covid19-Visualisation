@@ -29,8 +29,10 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min, date_max
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df['new_cases'] = df['new_cases'].abs()
+    df['new_deaths'] = df['new_deaths'].abs()
     date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
     date_max = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
     print('data loaded')
@@ -133,7 +135,7 @@ app.layout = html.Div([
 
     html.Div([
 
-        dcc.Graph(id='feature-graphic3',
+        dcc.Graph(id='feature-graphic4',
                   config={'displayModeBar': False},
                   style={'height': 395}
                   )
@@ -224,7 +226,7 @@ def update_graph2(country_name):
     return fig
 
 
-@app.callback(Output('feature-graphic3', 'figure'),
+@app.callback(Output('feature-graphic4', 'figure'),
               [Input('country_selected2', 'value')]
               )
 def update_piechart(country_name):
