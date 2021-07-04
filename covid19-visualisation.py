@@ -9,6 +9,7 @@ import datetime as dt
 import time as t
 from concurrent.futures import ThreadPoolExecutor
 import urllib.request as urllib2
+from styling_values import *
 
 
 app = dash.Dash(__name__,
@@ -29,8 +30,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min, date_max
-    df = pd.read_csv('owid-covid-data.csv')
-    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    # df = pd.read_csv('owid-covid-data.csv')
+    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     df['new_cases'] = df['new_cases'].abs()
     df['new_deaths'] = df['new_deaths'].abs()
     date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
@@ -68,19 +69,6 @@ def create_steps(date_min_arg, date_max_arg):
                                                        'style': {'font-size': '10px'}}
                  for interval in range(0, intervals + 1)}
     return day_steps
-
-
-style = {
-    'border': '#9db0ae solid 2px',
-    'border-radius': '10px',
-    'background-color': '#bfd8d5',
-    'padding': '3px'}
-
-dropdown_style = {
-    'color': 'black',
-    'background-color': '#dfdfdf',
-    'border-radius': '7px'
-}
 
 
 get_new_data()
@@ -154,13 +142,13 @@ app.layout = html.Div([
     ], id='graph4'),
 
     html.Div([
-        dcc.Graph(id='feature-grapic5',
+        dcc.Graph(id='feature-graphic5',
                   style={'height': 395, **style},
                   config={'displayModeBar': False, 'staticPlot': True})
     ], id="graph5"),
 
     html.Div([
-        dcc.Graph(id='feature-grapic6',
+        dcc.Graph(id='feature-graphic6',
                   style={'height': 395, **style},
                   config={'displayModeBar': False, 'staticPlot': True})
     ], id="graph6"),
@@ -222,8 +210,7 @@ def update_graph1(country_names, date_range):
 
 
 @app.callback(Output('feature-graphic2', 'figure'),
-              [Input('country_selected2', 'value')]
-              )
+              [Input('country_selected2', 'value')])
 def update_graph2(country_name):
     country_df = df[df['location'] == country_name]
     fig = px.bar(country_df, x='date', y='new_cases')
@@ -234,15 +221,14 @@ def update_graph2(country_name):
                       plot_bgcolor='#bfd8d5',
                       paper_bgcolor='#bfd8d5',
                       )
-    fig.update_traces(marker_color='#4a5251')
+    fig.update_traces(marker_color=bar_color)
     fig.update_yaxes(gridcolor='#9db0ae', zerolinecolor='#9db0ae')
 
     return fig
 
 
 @app.callback(Output('feature-graphic4', 'figure'),
-              [Input('country_selected2', 'value')]
-              )
+              [Input('country_selected2', 'value')])
 def update_piechart(country_name):
     current_country = df[df['location'] == country_name]
 
@@ -284,13 +270,13 @@ def update_slider(empty_value):
 bar_chart_style = dict(showgrid=False, showticklabels=False, title=None)
 
 
-@app.callback(Output('feature-grapic5', 'figure'),
+@app.callback(Output('feature-graphic5', 'figure'),
               [Input('country_selected2', 'value')])
 def update_graph5(country_name):
     print(country_name)
-    country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
-    fig = px.bar(country_df.tail(30), x='date', y='new_cases')   # every single style elemnt except bars
-    # fig.update_traces(marker_color='#4a5251')
+    country_df = df[df['location'] == country_name]
+    fig = px.bar(country_df.tail(30), x='date', y='new_cases')
+    fig.update_traces(marker_color=bar_color)
 
     fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0),
                       plot_bgcolor='#bfd8d5'
@@ -301,26 +287,30 @@ def update_graph5(country_name):
         value=country_df.tail(30).iloc[29]['new_cases'],
         delta={'reference': country_df.tail(30).iloc[1]['new_cases'], 'relative': True,
                'increasing': {'color': 'red'}, 'decreasing': {'color': 'green'}},
+        number={'font': {'color': '#1f302e'}}
     ))
 
     return fig
 
 
-@app.callback(Output('feature-grapic6', 'figure'),
+@app.callback(Output('feature-graphic6', 'figure'),
               [Input('country_selected2', 'value')])
 def update_graph6(country_name):
     print(country_name)
-    country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
-    fig = px.bar(country_df.tail(30), x='date', y='new_deaths')   # every single style elemnt except bars
+    country_df = df[df['location'] == country_name]
+    fig = px.bar(country_df.tail(30), x='date', y='new_deaths')
+    fig.update_traces(marker_color=bar_color)
 
     fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0),
-                      plot_bgcolor='#bfd8d5')
+                      plot_bgcolor='#bfd8d5'
+                      )
 
     fig.add_trace(go.Indicator(
         mode='number+delta',
         value=country_df.tail(30).iloc[29]['new_deaths'],
         delta={'reference': country_df.tail(30).iloc[1]['new_deaths'], 'relative': True,
                'increasing': {'color': 'red'}, 'decreasing': {'color': 'green'}},
+        number={'font': {'color': '#1f302e'}}
     ))
 
     return fig

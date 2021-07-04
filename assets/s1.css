@@ -63,6 +63,9 @@ body {
     grid-area: 8 / 1 / 9 / -1;
 }
 
+.numbers{
+    text-shadow: 2px 2px 4px #b4d6d2;
+}
 
 
 @media only screen and (max-width: 500px) {
