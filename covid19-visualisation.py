@@ -228,11 +228,14 @@ def update_graph2(country_name):
     country_df = df[df['location'] == country_name]
     fig = px.bar(country_df, x='date', y='new_cases')
 
-    fig.update_layout(title={'text': 'Total cases per day', 'y': .85, 'x': .1},
-                      xaxis=None, yaxis={'title': 'Daily Cases', 'anchor': 'free', 'position': 0.05},
+    fig.update_layout(title={'text': 'Total cases per day', 'y': .9, 'x': .05},
+                      xaxis=None, yaxis=None,
                       margin=dict(l=5, r=5, t=20, b=20),
                       plot_bgcolor='#bfd8d5',
-                      paper_bgcolor='#bfd8d5')
+                      paper_bgcolor='#bfd8d5',
+                      )
+    fig.update_traces(marker_color='#4a5251')
+    fig.update_yaxes(gridcolor='#9db0ae', zerolinecolor='#9db0ae')
 
     return fig
 
@@ -287,6 +290,7 @@ def update_graph5(country_name):
     print(country_name)
     country_df = df[df['location'] == country_name]     # need to create last 30 days dataframe and remove
     fig = px.bar(country_df.tail(30), x='date', y='new_cases')   # every single style elemnt except bars
+    # fig.update_traces(marker_color='#4a5251')
 
     fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0),
                       plot_bgcolor='#bfd8d5'
