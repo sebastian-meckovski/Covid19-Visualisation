@@ -76,8 +76,6 @@ def create_steps(date_min_arg, date_max_arg):
 
 get_new_data()
 
-# element = html.H1('hello', id='hello')
-
 app.layout = html.Div([
 
     html.Div([
@@ -88,7 +86,6 @@ app.layout = html.Div([
 
     html.Div([
                 dcc.Dropdown(
-
                     id='country_selected',
                     options=[{'label': i, 'value': i} for i in df['location'].unique()],
                     multi=True,
@@ -182,6 +179,7 @@ layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                             plot_bgcolor='#bfd8d5',
                             paper_bgcolor='#bfd8d5')
 
+
 @app.callback(
         Output('feature-graphic1', 'figure'),
         Output('feature-graphic-2nd-dose', 'figure'),
@@ -214,11 +212,13 @@ def update_graph1(country_names, date_range):
 
 
 @app.callback(Output('feature-graphic2', 'figure'),
-              [Input('country_selected2', 'value')])
-def update_graph2(country_name):
-    country_df = df[df['location'] == country_name]
+              [Input('country_selected2', 'value'),
+               Input('slider2', 'value')])
+def update_graph2(country_name, date_range):
+    country_df = df[(df['location'] == country_name) & (df['date'] >= unix_to_date(date_range[0])) &
+                    (df['date'] <= unix_to_date(date_range[1]))]
     fig = px.bar(country_df, x='date', y='new_cases')
-
+    print(date_range)
     fig.update_layout(title={'text': 'Total cases per day', 'y': .9, 'x': .05},
                       xaxis=None, yaxis=None,
                       margin=dict(l=5, r=5, t=20, b=20),
