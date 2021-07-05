@@ -280,7 +280,7 @@ def update_slider2(empty_value):
     min_arg = date_to_unix(date_min_cases),
     max_arg = date_to_unix(date_max_cases),
     marks = create_steps(date_to_unix(date_min_cases), date_to_unix(date_max_cases)),
-    value = [date_to_unix(date_min_cases), date_to_unix(date_max_cases)],
+    value = [date_to_unix(date_max_cases)-31536000, date_to_unix(date_max_cases)],
     empty_value = None
     print('values updated from update slider function')
     return min_arg[0], max_arg[0], marks[0], value[0]
