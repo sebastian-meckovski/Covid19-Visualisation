@@ -11,3 +11,5 @@ dropdown_style = {
 }
 
 bar_color = '#5f8580'
+
+bar_chart_style = dict(showgrid=False, showticklabels=False, title=None)

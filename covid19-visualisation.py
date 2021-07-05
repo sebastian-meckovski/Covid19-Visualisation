@@ -29,13 +29,16 @@ def openurl():
 
 def get_new_data():
     """Updates the global variable 'df' with new data"""
-    global df, date_min, date_max
+    global df, date_min_vac, date_max_vac, date_min_cases, date_max_cases
     # df = pd.read_csv('owid-covid-data.csv')
     df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     df['new_cases'] = df['new_cases'].abs()
     df['new_deaths'] = df['new_deaths'].abs()
-    date_min = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
-    date_max = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
+    date_min_vac = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
+    date_max_vac = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].max()
+    date_min_cases = df[(df['date'] >= '') & (df['total_cases'])]['date'].min()
+    date_max_cases = df[(df['date'] >= '') & (df['total_cases'])]['date'].max()
+
     print('data loaded')
 
 
@@ -73,6 +76,7 @@ def create_steps(date_min_arg, date_max_arg):
 
 get_new_data()
 
+# element = html.H1('hello', id='hello')
 
 app.layout = html.Div([
 
@@ -126,11 +130,12 @@ app.layout = html.Div([
     html.Div([
 
         dcc.Graph(id='feature-graphic2',
-                  style=style,
+                  # style=style,
                   config={'displayModeBar': False,
-                          'staticPlot': True})
-
-    ], id='graph3'),
+                          'staticPlot': True}),
+        dcc.RangeSlider(
+            id='slider2')
+    ], id='graph3', style=style),
 
     html.Div([
 
@@ -150,7 +155,7 @@ app.layout = html.Div([
     html.Div([
         dcc.Graph(id='feature-graphic6',
                   style={'height': 395, **style},
-                  config={'displayModeBar': False, 'staticPlot': True})
+                  config={'displayModeBar': False, 'staticPlot': True}),
     ], id="graph6"),
 
     html.Div([
@@ -176,7 +181,6 @@ layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                             margin=dict(l=5, r=5, t=20, b=30),
                             plot_bgcolor='#bfd8d5',
                             paper_bgcolor='#bfd8d5')
-
 
 @app.callback(
         Output('feature-graphic1', 'figure'),
@@ -258,16 +262,28 @@ def update_piechart(country_name):
               Output('slider', 'value'),
               [Input('empty-field', 'value')])
 def update_slider(empty_value):
-    min_arg = date_to_unix(date_min),
-    max_arg = date_to_unix(date_max),
-    marks = create_steps(date_to_unix(date_min), date_to_unix(date_max)),
-    value = [date_to_unix(date_min), date_to_unix(date_max)],
+    min_arg = date_to_unix(date_min_vac),
+    max_arg = date_to_unix(date_max_vac),
+    marks = create_steps(date_to_unix(date_min_vac), date_to_unix(date_max_vac)),
+    value = [date_to_unix(date_min_vac), date_to_unix(date_max_vac)],
     empty_value = None
     print('values updated from update slider function')
     return min_arg[0], max_arg[0], marks[0], value[0]
 
 
-bar_chart_style = dict(showgrid=False, showticklabels=False, title=None)
+@app.callback(Output('slider2', 'min'),
+              Output('slider2', 'max'),
+              Output('slider2', 'marks'),
+              Output('slider2', 'value'),
+              [Input('empty-field', 'value')])
+def update_slider2(empty_value):
+    min_arg = date_to_unix(date_min_cases),
+    max_arg = date_to_unix(date_max_cases),
+    marks = create_steps(date_to_unix(date_min_cases), date_to_unix(date_max_cases)),
+    value = [date_to_unix(date_min_cases), date_to_unix(date_max_cases)],
+    empty_value = None
+    print('values updated from update slider function')
+    return min_arg[0], max_arg[0], marks[0], value[0]
 
 
 @app.callback(Output('feature-graphic5', 'figure'),
