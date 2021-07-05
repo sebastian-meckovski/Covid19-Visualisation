@@ -127,7 +127,6 @@ app.layout = html.Div([
     html.Div([
 
         dcc.Graph(id='feature-graphic2',
-                  # style=style,
                   config={'displayModeBar': False,
                           'staticPlot': True}),
         dcc.RangeSlider(
