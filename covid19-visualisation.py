@@ -214,10 +214,36 @@ def update_graph1(country_names, date_range):
               [Input('country_selected2', 'value'),
                Input('slider2', 'value')])
 def update_graph2(country_name, date_range):
-    country_df = df[(df['location'] == country_name) & (df['date'] >= unix_to_date(date_range[0])) &
-                    (df['date'] <= unix_to_date(date_range[1]))]
-    fig = px.bar(country_df, x='date', y='new_cases')
-    print(date_range)
+    country_df_bar = df[(df['location'] == country_name) & (df['date'] >= unix_to_date(date_range[0])) &
+                        (df['date'] <= unix_to_date(date_range[1]))]
+    country_df_sca = df[(df['location'] == country_name) & (df['date'] >= unix_to_date(date_range[0])) &
+                        (df['date'] <= unix_to_date(date_range[1]))]
+
+    country_df_sca['new_cases'] = country_df_sca['new_cases'].rolling(window=7).mean()
+    country_df_sca['new_cases'] = country_df_sca['new_cases'].iloc[::7] # warning needs handling
+
+    country_df_sca = country_df_sca.dropna(subset=['new_cases'])
+
+    fig = go.Figure()
+
+    # fig = px.bar(country_df_bar, x='date', y='new_cases')
+
+    # fig.add_trace(
+    #     go.Scatter(x=country_df_sca['date'], y=country_df_sca['new_cases'],
+    #                mode="markers+lines", showlegend=False, line=dict(color='orange'))
+    # )
+
+    # this will need to be sorted.
+
+    fig.add_trace(
+        go.Bar(x=country_df_bar['date'], y=country_df_bar['new_cases'], showlegend=False)
+    )
+
+    fig.add_trace(
+        go.Scatter(x=country_df_sca['date'], y=country_df_sca['new_cases'],
+                   line=dict(color='orange'), showlegend=False)
+    )
+
     fig.update_layout(title={'text': 'Total cases per day', 'y': .9, 'x': .05},
                       xaxis=None, yaxis=None,
                       margin=dict(l=5, r=5, t=20, b=20),
@@ -226,9 +252,6 @@ def update_graph2(country_name, date_range):
                       )
     fig.update_traces(marker_color=bar_color)
     fig.update_yaxes(gridcolor='#9db0ae', zerolinecolor='#9db0ae')
-
-    country_df['new_cases'] = country_df['new_cases'].rolling(window=7).mean().iloc[::7]
-    # still working on that dataframe. Will need to create 7 day moving average
 
     return fig
 
