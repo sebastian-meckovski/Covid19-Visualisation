@@ -227,6 +227,9 @@ def update_graph2(country_name, date_range):
     fig.update_traces(marker_color=bar_color)
     fig.update_yaxes(gridcolor='#9db0ae', zerolinecolor='#9db0ae')
 
+    country_df['new_cases'] = country_df['new_cases'].rolling(window=7).mean().iloc[::7]
+    # still working on that dataframe. Will need to create 7 day moving average
+
     return fig
 
 
