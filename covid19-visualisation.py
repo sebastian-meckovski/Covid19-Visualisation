@@ -164,16 +164,11 @@ app.layout = html.Div([
                   style={'display': 'none'})
     ]),
 
-
-
-
-], className='container')
+    ], className='container')
 
 layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                                    'ticksuffix': '%'},
-                            legend={'orientation': 'v',  'yanchor': 'top', 'x': 0.055, 'y': 0.96,
-                                    'bgcolor': "#d8e7e5", 'bordercolor': "#859795", 'borderwidth': 2,
-                                    },
+                            legend=legend_style,
                             margin=dict(l=5, r=5, t=20, b=30),
                             plot_bgcolor='#bfd8d5',
                             paper_bgcolor='#bfd8d5')
@@ -228,11 +223,11 @@ def update_graph2(country_name, date_range):
 
     fig.add_trace(
         go.Scatter(x=country_df_sca['date'], y=country_df_sca['new_cases'],
-                   line=dict(color='red', width=4, dash='dot'), showlegend=False, mode="lines")
+                   line=dict(color='red', width=4, dash='dot'), showlegend=True, mode="lines")
     )
 
     fig.add_trace(
-        go.Bar(x=country_df_bar['date'], y=country_df_bar['new_cases'], showlegend=False)
+        go.Bar(x=country_df_bar['date'], y=country_df_bar['new_cases'], showlegend=True)
     )
 
     fig.update_layout(title={'text': 'Total cases per day', 'y': .9, 'x': .05},
@@ -240,7 +235,9 @@ def update_graph2(country_name, date_range):
                       margin=dict(l=5, r=5, t=20, b=20),
                       plot_bgcolor='#bfd8d5',
                       paper_bgcolor='#bfd8d5',
+                      legend=legend_style,
                       )
+
     fig.update_traces(marker_color=bar_color)
     fig.update_yaxes(gridcolor='#9db0ae', zerolinecolor='#9db0ae')
 
@@ -307,7 +304,9 @@ def update_slider2(empty_value):
 def update_graph5(country_name):
     print(country_name)
     country_df = df[df['location'] == country_name]
+
     fig = px.bar(country_df.tail(30), x='date', y='new_cases')
+
     fig.update_traces(marker_color=bar_color)
 
     fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0),

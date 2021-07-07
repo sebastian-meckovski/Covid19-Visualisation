@@ -10,6 +10,9 @@ dropdown_style = {
     'border-radius': '7px'
 }
 
+legend_style = {'orientation': 'v',  'yanchor': 'top', 'x': 0.055, 'y': 0.96, 'bgcolor': "#d8e7e5", 'bordercolor':
+                "#859795", 'borderwidth': 2}
+
 bar_color = '#5f8580'
 
 bar_chart_style = dict(showgrid=False, showticklabels=False, title=None)
