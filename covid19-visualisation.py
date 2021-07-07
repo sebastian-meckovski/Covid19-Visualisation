@@ -220,28 +220,19 @@ def update_graph2(country_name, date_range):
                         (df['date'] <= unix_to_date(date_range[1]))]
 
     country_df_sca['new_cases'] = country_df_sca['new_cases'].rolling(window=7).mean()
-    country_df_sca['new_cases'] = country_df_sca['new_cases'].iloc[::7] # warning needs handling
+    country_df_sca['new_cases'] = country_df_sca['new_cases'].iloc[::2]  # warning needs handling
 
     country_df_sca = country_df_sca.dropna(subset=['new_cases'])
 
     fig = go.Figure()
 
-    # fig = px.bar(country_df_bar, x='date', y='new_cases')
-
-    # fig.add_trace(
-    #     go.Scatter(x=country_df_sca['date'], y=country_df_sca['new_cases'],
-    #                mode="markers+lines", showlegend=False, line=dict(color='orange'))
-    # )
-
-    # this will need to be sorted.
-
     fig.add_trace(
-        go.Bar(x=country_df_bar['date'], y=country_df_bar['new_cases'], showlegend=False)
+        go.Scatter(x=country_df_sca['date'], y=country_df_sca['new_cases'],
+                   line=dict(color='red', width=4, dash='dot'), showlegend=False, mode="lines")
     )
 
     fig.add_trace(
-        go.Scatter(x=country_df_sca['date'], y=country_df_sca['new_cases'],
-                   line=dict(color='orange'), showlegend=False)
+        go.Bar(x=country_df_bar['date'], y=country_df_bar['new_cases'], showlegend=False)
     )
 
     fig.update_layout(title={'text': 'Total cases per day', 'y': .9, 'x': .05},
