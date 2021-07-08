@@ -1,3 +1,5 @@
+import copy
+
 import pandas as pd
 import dash
 import dash_core_components as dcc
@@ -97,15 +99,13 @@ app.layout = html.Div([
     html.Div([
 
         dcc.Graph(id='feature-graphic1',
-                  config={'displayModeBar': False,
-                          'staticPlot': True},
+                  config=static_config,
                   style=style
                   )], id='graph1'),
 
     html.Div([
         dcc.Graph(id='feature-graphic-2nd-dose',
-                  config={'displayModeBar': False,
-                          'staticPlot': True},
+                  config=static_config,
                   style=style
                   )], id='graph2'),
 
@@ -127,8 +127,11 @@ app.layout = html.Div([
     html.Div([
 
         dcc.Graph(id='feature-graphic2',
-                  config={'displayModeBar': False,
-                          'staticPlot': True}),
+                  config=static_config),
+
+        dcc.Graph(id='feature-graphic7',
+                  config=static_config),
+
         dcc.RangeSlider(
             id='slider2')
     ], id='graph3', style=style),
@@ -145,13 +148,13 @@ app.layout = html.Div([
     html.Div([
         dcc.Graph(id='feature-graphic5',
                   style={'height': 395, **style},
-                  config={'displayModeBar': False, 'staticPlot': True})
+                  config=static_config)
     ], id="graph5"),
 
     html.Div([
         dcc.Graph(id='feature-graphic6',
                   style={'height': 395, **style},
-                  config={'displayModeBar': False, 'staticPlot': True}),
+                  config=static_config),
     ], id="graph6"),
 
     html.Div([
@@ -206,6 +209,7 @@ def update_graph1(country_names, date_range):
 
 
 @app.callback(Output('feature-graphic2', 'figure'),
+              Output('feature-graphic7', 'figure'),
               [Input('country_selected2', 'value'),
                Input('slider2', 'value')])
 def update_graph2(country_name, date_range):
@@ -217,31 +221,42 @@ def update_graph2(country_name, date_range):
     country_df_sca['new_cases'] = country_df_sca['new_cases'].rolling(window=7).mean()
     country_df_sca['new_cases'] = country_df_sca['new_cases'].iloc[::2]  # warning needs handling
 
+    country_df_sca['new_deaths'] = country_df_sca['new_deaths'].rolling(window=7).mean()
+    country_df_sca['new_deaths'] = country_df_sca['new_deaths'].iloc[::2]  # warning needs handling
+
     country_df_sca = country_df_sca.dropna(subset=['new_cases'])
 
-    fig = go.Figure()
+    fig = go.Figure(layout=go.Layout(height=350)) # need to check if there is a better way of putting it
 
     fig.add_trace(
         go.Scatter(x=country_df_sca['date'], y=country_df_sca['new_cases'],
-                   line=dict(color='red', width=4, dash='dot'), showlegend=True, mode="lines")
+                   line=dict(color='#d1621d', width=4, dash='dot'), showlegend=True, mode="lines",
+                   name='7-day average')
     )
 
     fig.add_trace(
-        go.Bar(x=country_df_bar['date'], y=country_df_bar['new_cases'], showlegend=True)
+        go.Bar(x=country_df_bar['date'], y=country_df_bar['new_cases'], showlegend=True,
+               name='Daily Cases')
     )
 
-    fig.update_layout(title={'text': 'Total cases per day', 'y': .9, 'x': .05},
+    fig.update_layout(title={'text': 'Total cases per day', 'y': .9, 'x': .17},
                       xaxis=None, yaxis=None,
                       margin=dict(l=5, r=5, t=20, b=20),
                       plot_bgcolor='#bfd8d5',
                       paper_bgcolor='#bfd8d5',
-                      legend=legend_style,
+                      legend={**legend_style, 'x': 0.01}
                       )
 
     fig.update_traces(marker_color=bar_color)
     fig.update_yaxes(gridcolor='#9db0ae', zerolinecolor='#9db0ae')
 
-    return fig
+    fig2 = copy.deepcopy(fig)
+    fig2['data'][0]['y'] = country_df_sca['new_deaths']
+    fig2['data'][0]['line']['color'] = 'red'
+    fig2['data'][1]['y'] = country_df_bar['new_deaths']
+    fig2['layout']['title']['text'] = 'Total deaths per day'
+
+    return fig, fig2
 
 
 @app.callback(Output('feature-graphic4', 'figure'),
