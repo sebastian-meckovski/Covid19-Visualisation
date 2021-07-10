@@ -1,8 +1,46 @@
 body {
-  background-color: #f4f3f3;
+  background-color: white;
+  margin: 0;
+  padding: 0;
 }
 
-.container {
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #36403f;
+  color: white;
+}
+
+.dashboard-title{
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+.navbar-links ul{
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-links li {
+  list-style: inside;
+  color: white;
+
+}
+
+.link-class{
+  text-decoration: none;
+  color: white;
+  padding: 1.5em;
+  display: block;
+}
+
+.link-class:hover{
+  background-color: #498079;
+}
+
+.container-grid {
   display: grid;
   height: 100vh;
   max-width: 1200px;

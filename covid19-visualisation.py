@@ -80,92 +80,102 @@ get_new_data()
 
 app.layout = html.Div([
 
-    html.Div([
+    html.Nav([
 
-       html.Nav('Covid-19 global data Dashboard')
+        html.Div('Covid-19 global data Dashboard', className='dashboard-title'),
+        html.Div(
+            html.Ul([html.A('Linked-In', href='#', className='link-class'),
+                     html.A('Source Code', href='#', className='link-class'),
+                     html.A('CSV Data', href='#', className='link-class')]),
+            className='navbar-links'),
 
-    ], id='navbar'),
-
-    html.Div([
-                dcc.Dropdown(
-                    id='country_selected',
-                    options=[{'label': i, 'value': i} for i in df['location'].unique()],
-                    multi=True,
-                    value=['United Kingdom', 'United States'],
-                    style=dropdown_style
-                ),
-    ], id='dropdown1'),
+    ], className='navbar'),
 
     html.Div([
 
-        dcc.Graph(id='feature-graphic1',
-                  config=static_config,
-                  style=style
-                  )], id='graph1'),
 
-    html.Div([
-        dcc.Graph(id='feature-graphic-2nd-dose',
-                  config=static_config,
-                  style=style
-                  )], id='graph2'),
+        html.Div([
+                    dcc.Dropdown(
+                        id='country_selected',
+                        options=[{'label': i, 'value': i} for i in df['location'].unique()],
+                        multi=True,
+                        value=['United Kingdom', 'United States'],
+                        style=dropdown_style
+                    ),
+        ], id='dropdown1'),
 
-    html.Div([
-        dcc.RangeSlider(id='slider',
-                        step=1
-                        )
-    ], id='slider1'),
+        html.Div([
 
-    html.Div([
+            dcc.Graph(id='feature-graphic1',
+                      config=static_config,
+                      style=style
+                      )], id='graph1'),
 
-        dcc.Dropdown(
-            id='country_selected2',
-            options=[{'label': i, 'value': i} for i in df['location'].unique()],
-            value='United Kingdom',
-            style=dropdown_style)
-    ], id='dropdown2'),
-    
-    html.Div([
+        html.Div([
+            dcc.Graph(id='feature-graphic-2nd-dose',
+                      config=static_config,
+                      style=style
+                      )], id='graph2'),
 
-        dcc.Graph(id='feature-graphic2',
-                  config=static_config),
+        html.Div([
+            dcc.RangeSlider(id='slider',
+                            step=1
+                            )
+        ], id='slider1'),
 
-        dcc.Graph(id='feature-graphic7',
-                  config=static_config),
+        html.Div([
 
-        dcc.RangeSlider(
-            id='slider2')
-    ], id='graph3', style=style),
+            dcc.Dropdown(
+                id='country_selected2',
+                options=[{'label': i, 'value': i} for i in df['location'].unique()],
+                value='United Kingdom',
+                style=dropdown_style)
+        ], id='dropdown2'),
 
-    html.Div([
+        html.Div([
 
-        dcc.Graph(id='feature-graphic4',
-                  config={'displayModeBar': False},
-                  style={'height': 395, **style},
-                  )
+            dcc.Graph(id='feature-graphic2',
+                      config=static_config),
 
-    ], id='graph4'),
+            dcc.Graph(id='feature-graphic7',
+                      config=static_config),
 
-    html.Div([
-        dcc.Graph(id='feature-graphic5',
-                  style={'height': 395, **style},
-                  config=static_config)
-    ], id="graph5"),
+            dcc.RangeSlider(
+                id='slider2')
+        ], id='graph3', style=style),
 
-    html.Div([
-        dcc.Graph(id='feature-graphic6',
-                  style={'height': 395, **style},
-                  config=static_config),
-    ], id="graph6"),
+        html.Div([
 
-    html.Div([
-        html.H2("page under construction")
-    ], id='footer'),
+            dcc.Graph(id='feature-graphic4',
+                      config={'displayModeBar': False},
+                      style={'height': 395, **style},
+                      )
+
+        ], id='graph4'),
+
+        html.Div([
+            dcc.Graph(id='feature-graphic5',
+                      style={'height': 395, **style},
+                      config=static_config)
+        ], id="graph5"),
+
+        html.Div([
+            dcc.Graph(id='feature-graphic6',
+                      style={'height': 395, **style},
+                      config=static_config),
+        ], id="graph6"),
+
+        html.Div([
+            html.H2("page under construction")
+        ], id='footer'),
 
 
-    html.Div([
-        dcc.Input(id='empty-field',
-                  style={'display': 'none'})
-    ]),
+        html.Div([
+            dcc.Input(id='empty-field',
+                      style={'display': 'none'})
+        ]),
+
+        ], className='container-grid')
 
     ], className='container')
 
