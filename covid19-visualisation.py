@@ -172,9 +172,13 @@ app.layout = html.Div([
 layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                                    'ticksuffix': '%'},
                             legend=legend_style,
+                            title={'yanchor': 'auto', 'text': 'People with at least 1st dose', 'y': .99, 'x': .062},
                             margin=dict(l=5, r=5, t=20, b=30),
                             plot_bgcolor='#bfd8d5',
                             paper_bgcolor='#bfd8d5')
+
+layout_settings2 = copy.deepcopy(layout_settings)
+layout_settings2['title']['text'] = 'Fully vaccinated'
 
 
 @app.callback(
@@ -195,6 +199,7 @@ def update_graph1(country_names, date_range):
                           name=country_names[i],
                           )
 
+
         fig2 = go.Scatter(x=country_df['date'],
                           y=country_df['people_fully_vaccinated_per_hundred'],
                           mode='lines+markers',
@@ -205,7 +210,7 @@ def update_graph1(country_names, date_range):
         scatter_list_2st_vacc.append(fig2)
 
     return {'data': scatter_list_1st_vacc, 'layout': layout_settings},\
-           {'data': scatter_list_2st_vacc, 'layout': layout_settings}
+           {'data': scatter_list_2st_vacc, 'layout': layout_settings2}
 
 
 @app.callback(Output('feature-graphic2', 'figure'),
@@ -239,12 +244,12 @@ def update_graph2(country_name, date_range):
                name='Daily Cases')
     )
 
-    fig.update_layout(title={'text': 'Total cases per day', 'y': .9, 'x': .17},
-                      xaxis=None, yaxis=None,
+    fig.update_layout(title={'text': 'Total cases per day', 'y': .99, 'x': .99},
+                      # xaxis=None, yaxis=None,
                       margin=dict(l=5, r=5, t=20, b=20),
                       plot_bgcolor='#bfd8d5',
                       paper_bgcolor='#bfd8d5',
-                      legend={**legend_style, 'x': 0.01}
+                      legend={**legend_style, 'y': .98, 'x': 1.01}
                       )
 
     fig.update_traces(marker_color=bar_color)

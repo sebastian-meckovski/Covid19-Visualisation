@@ -10,8 +10,8 @@ dropdown_style = {
     'border-radius': '7px'
 }
 
-legend_style = {'orientation': 'v',  'yanchor': 'top', 'x': 0.055, 'y': 0.99, 'bgcolor': "#d8e7e5", 'bordercolor':
-                "#859795", 'borderwidth': 2}
+legend_style = {'orientation': 'v', 'xanchor': 'auto',  'yanchor': 'auto', 'x': 0.055, 'y': .99, 'bgcolor': "#d8e7e5",
+                'bordercolor': "#859795", 'borderwidth': 2}
 
 bar_color = '#5f8580'
 
