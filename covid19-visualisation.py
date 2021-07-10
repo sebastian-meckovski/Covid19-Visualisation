@@ -32,8 +32,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min_vac, date_max_vac, date_min_cases, date_max_cases
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     df['new_cases'] = df['new_cases'].abs()
     df['new_deaths'] = df['new_deaths'].abs()
     date_min_vac = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
@@ -283,9 +283,11 @@ def update_piechart(country_name):
                            hoverinfo='skip'
                            ))
 
-    fig.update_layout(plot_bgcolor='#bfd8d5',
+    fig.update_layout(title={'text': 'Vaccinated Population Breakdown ', **title_style_middle},
+                      plot_bgcolor='#bfd8d5',
                       paper_bgcolor='#bfd8d5',
                       margin=dict(t=15, b=15, l=15, r=15))
+
     return fig
 
 
@@ -329,8 +331,11 @@ def update_graph5(country_name):
 
     fig.update_traces(marker_color=bar_color)
 
-    fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0),
-                      plot_bgcolor='#bfd8d5'
+    fig.update_layout(xaxis=bar_chart_style,
+                      yaxis=bar_chart_style,
+                      margin=dict(l=0, r=0, t=0, b=0),
+                      plot_bgcolor='#bfd8d5',
+                      title={'text': 'New cases last 30 days', **title_style_middle}
                       )
 
     fig.add_trace(go.Indicator(
@@ -352,7 +357,10 @@ def update_graph6(country_name):
     fig = px.bar(country_df.tail(30), x='date', y='new_deaths')
     fig.update_traces(marker_color=bar_color)
 
-    fig.update_layout(xaxis=bar_chart_style, yaxis=bar_chart_style, margin=dict(l=0, r=0, t=0, b=0),
+    fig.update_layout(title={'text': 'New cases last 30 days', **title_style_middle},
+                      xaxis=bar_chart_style,
+                      yaxis=bar_chart_style,
+                      margin=dict(l=0, r=0, t=0, b=0),
                       plot_bgcolor='#bfd8d5'
                       )
 

@@ -15,6 +15,8 @@ legend_style = {'orientation': 'v', 'xanchor': 'auto',  'yanchor': 'auto', 'x': 
 
 bar_color = '#5f8580'
 
+title_style_middle = {'y': 1, 'x': .5}
+
 bar_chart_style = dict(showgrid=False, showticklabels=False, title=None)
 
 static_config = {'displayModeBar': False,
