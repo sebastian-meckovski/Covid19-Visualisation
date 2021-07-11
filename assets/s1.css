@@ -2,6 +2,7 @@ body {
   background-color: white;
   margin: 0;
   padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .navbar {
@@ -128,10 +129,31 @@ body {
   }
 
   .navbar-links {
-    display:none;
+    /*display:none;*/
+    width: 100%;
   }
 
-  .container {
+  .navbar{
+    flex-direction: column;
+    align-items: flex-start;
   }
+
+  .navbar-links ul {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .navbar-links li{
+    text-align: center;
+  }
+
+  .navbar-links li a{
+    padding: .5rem 1rem;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
 }
 

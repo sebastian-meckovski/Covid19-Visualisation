@@ -1,10 +1,9 @@
 import copy
-
 import pandas as pd
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import plotly.graph_objs as go
 import plotly.express as px
 import datetime as dt
@@ -84,11 +83,10 @@ app.layout = html.Div([
 
         html.Div('Covid-19 global data Dashboard', className='dashboard-title'),
 
-        html.A([
-            html.Span(className='bar'),
-            html.Span(className='bar'),
-            html.Span(className='bar')
-        ], href='#', className='toggle-button'),
+        html.A([html.Span(className='bar'),
+                html.Span(className='bar'),
+                html.Span(className='bar')],
+               href='#', className='toggle-button'),
 
         html.Div(
             html.Ul([
@@ -217,7 +215,6 @@ def update_graph1(country_names, date_range):
                           mode='lines+markers',
                           name=country_names[i],
                           )
-
 
         fig2 = go.Scatter(x=country_df['date'],
                           y=country_df['people_fully_vaccinated_per_hundred'],
