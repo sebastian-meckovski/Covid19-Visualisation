@@ -78,25 +78,27 @@ def create_steps(date_min_arg, date_max_arg):
 get_new_data()
 
 app.layout = html.Div([
-
     html.Nav([
-
-        html.Div('Covid-19 global data Dashboard', className='dashboard-title'),
-
-        html.A([html.Span(className='bar'),
-                html.Span(className='bar'),
-                html.Span(className='bar')],
-               href='#', className='toggle-button'),
-
+        html.Div("Covid-19 global data Dashboard", className="dashboard-title"),
+        html.A(
+            id="toggle-button",
+            children=[
+                html.Span(className="bar"),
+                html.Span(className="bar"),
+                html.Span(className="bar"),
+                ],
+            href="#",
+            className="toggle-button"),
         html.Div(
-            html.Ul([
-                html.Li(html.A('Linked-In', href='#')),
-                html.Li(html.A('Source Code', href='#')),
-                html.Li(html.A('CSV Data', href='#'))
-            ]),
-            className='navbar-links'),
-
-    ], className='navbar'),
+            id="navbar-links",
+            children=html.Ul(
+                children=[
+                    html.Li(html.A("Linked-In", href="#")),
+                    html.Li(html.A("Source Code", href="#")),
+                    html.Li(html.A("CSV Data", href="#"))]),
+            className="navbar-links active"
+        )],
+        className="navbar"),
 
     html.Div([
 
@@ -389,6 +391,19 @@ def update_graph6(country_name):
     ))
 
     return fig
+
+
+@app.callback(
+    Output("navbar-links", "className"),
+    Input("toggle-button", "n_clicks"),
+    State("navbar-links", "className"),
+    prevent_initial_call=True,
+)
+def callback(n_clicks, current_classes):
+    base_class = "navbar-links"
+    if "active" in current_classes:
+        return base_class
+    return base_class + " active"
 
 
 executor = ThreadPoolExecutor(max_workers=1)

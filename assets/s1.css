@@ -129,7 +129,7 @@ body {
   }
 
   .navbar-links {
-    /*display:none;*/
+    display: flex;
     width: 100%;
   }
 
@@ -152,7 +152,7 @@ body {
   }
 
   .navbar-links.active {
-    display: flex;
+    display: none;
   }
 
 }
