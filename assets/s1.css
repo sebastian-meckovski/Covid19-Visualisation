@@ -14,7 +14,7 @@ body {
 
 .dashboard-title{
   font-size: 1.5rem;
-  margin: 1rem;
+  margin: .5rem;
 }
 
 .navbar-links ul{
@@ -24,20 +24,36 @@ body {
 }
 
 .navbar-links li {
-  list-style: inside;
-  color: white;
-
+  list-style: none;
 }
 
-.link-class{
+.navbar-links li a{
   text-decoration: none;
   color: white;
-  padding: 1.5em;
+  padding: 1.5rem;
   display: block;
 }
 
-.link-class:hover{
+.navbar-links li a:hover{
   background-color: #498079;
+}
+
+.toggle-button{
+    position: absolute;
+    top: .8rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+}
+
+.toggle-button .bar{
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .container-grid {
@@ -106,6 +122,15 @@ body {
 }
 
 @media only screen and (max-width: 500px) {
+
+  .toggle-button {
+    display: flex;
+  }
+
+  .navbar-links {
+    display:none;
+  }
+
   .container {
   }
 }

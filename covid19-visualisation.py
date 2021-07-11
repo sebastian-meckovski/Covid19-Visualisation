@@ -83,10 +83,19 @@ app.layout = html.Div([
     html.Nav([
 
         html.Div('Covid-19 global data Dashboard', className='dashboard-title'),
+
+        html.A([
+            html.Span(className='bar'),
+            html.Span(className='bar'),
+            html.Span(className='bar')
+        ], href='#', className='toggle-button'),
+
         html.Div(
-            html.Ul([html.A('Linked-In', href='#', className='link-class'),
-                     html.A('Source Code', href='#', className='link-class'),
-                     html.A('CSV Data', href='#', className='link-class')]),
+            html.Ul([
+                html.Li(html.A('Linked-In', href='#')),
+                html.Li(html.A('Source Code', href='#')),
+                html.Li(html.A('CSV Data', href='#'))
+            ]),
             className='navbar-links'),
 
     ], className='navbar'),
