@@ -174,9 +174,7 @@ app.layout = html.Div([
                       config=static_config),
         ], id="graph6"),
 
-        html.Div([
-            html.H2("page under construction")
-        ], id='footer'),
+
 
 
         html.Div([
@@ -184,9 +182,13 @@ app.layout = html.Div([
                       style={'display': 'none'})
         ]),
 
-        ], className='container-grid')
+        ], className='container-grid'),
 
-    ], className='container')
+    html.Footer([
+        html.H2("Dashboard created by Sebastian Meckovski")
+    ], id='footer'),
+
+], className='container')
 
 layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                                    'ticksuffix': '%'},

@@ -1,5 +1,5 @@
 body {
-  background-color: white;
+  background-color: #f1f2dc;
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -11,6 +11,20 @@ body {
   align-items: center;
   background-color: #36403f;
   color: white;
+}
+
+.container {
+  position: relative;
+  min-height: 100% ;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #36403f;
+  color: white;
+  height: 3.5rem;
 }
 
 .dashboard-title{
@@ -59,15 +73,12 @@ body {
 
 .container-grid {
   display: grid;
-  height: 100vh;
+  min-height: 100%;
   max-width: 1200px;
   margin: auto;
+  padding-bottom: 3.7rem;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   grid-gap: 3px;
-}
-
-#navbar{
-  grid-column: 1/-1;
 }
 
 #dropdown1{
@@ -114,10 +125,6 @@ body {
   grid-area: 6 / 5 / 7 / -1;
 }
 
-#footer{
-    grid-area: 8 / 1 / 9 / -1;
-}
-
 .numbers{
     text-shadow: 2px 2px 4px #b4d6d2;
 }
@@ -160,9 +167,6 @@ body {
     grid-area: 10 / 1 / 11 / -1;
   }
 
-  #footer{
-    grid-area: 11 / 1 / 12 / -1;
-  }
   .dashboard-title {
     font-size: 1.3rem;
   }
