@@ -174,9 +174,6 @@ app.layout = html.Div([
                       config=static_config),
         ], id="graph6"),
 
-
-
-
         html.Div([
             dcc.Input(id='empty-field',
                       style={'display': 'none'})
@@ -185,10 +182,10 @@ app.layout = html.Div([
         ], className='container-grid'),
 
     html.Footer([
-        html.Div("Dashboard created by Sebastian Meckovski", id='footer-text'),
+        html.Div("created by Sebastian Meckovski", id='footer-text'),
 
         html.Div([
-            html.Div(['Find Me On:']),
+            html.P(['Find Me On:'], id='find-me-on'),
             html.A(['Link 1'], href='#'),
             html.A(['Link 2'], href='#')
         ], id='footer-links'),

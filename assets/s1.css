@@ -76,6 +76,7 @@ body {
 
 #footer-text {
   margin: .5rem;
+  font-size: 1.5rem;
 }
 
 .container-grid {
@@ -211,6 +212,23 @@ body {
 
   H2{
     font-size: 15px;
+  }
+
+  #footer-text {
+  margin: .5rem;
+  font-size: .8rem;
+}
+  #footer-links{
+    display: flex;
+  }
+
+  #footer-links > *{
+    padding: 6px;
+  }
+
+  #find-me-on{
+    padding-right: 20px;
+    font-size: .8rem;
   }
 
 
