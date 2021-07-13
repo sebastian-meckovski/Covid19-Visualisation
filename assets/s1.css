@@ -18,15 +18,6 @@ body {
   min-height: 100% ;
 }
 
-#footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: #36403f;
-  color: white;
-  height: 3.5rem;
-}
-
 .dashboard-title{
   font-size: 1.5rem;
   margin: .5rem;
@@ -69,6 +60,22 @@ body {
     width: 100%;
     background-color: white;
     border-radius: 10px;
+}
+
+#footer {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+  background: #36403f;
+  color: white;
+  height: 3.5rem;
+}
+
+#footer-text {
+  margin: .5rem;
 }
 
 .container-grid {
@@ -182,7 +189,7 @@ body {
 
   .navbar{
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .navbar-links ul {
@@ -201,6 +208,11 @@ body {
   .navbar-links.active {
     display: none;
   }
+
+  H2{
+    font-size: 15px;
+  }
+
 
 }
 

@@ -185,7 +185,14 @@ app.layout = html.Div([
         ], className='container-grid'),
 
     html.Footer([
-        html.H2("Dashboard created by Sebastian Meckovski")
+        html.Div("Dashboard created by Sebastian Meckovski", id='footer-text'),
+
+        html.Div([
+            html.Div(['Find Me On:']),
+            html.A(['Link 1'], href='#'),
+            html.A(['Link 2'], href='#')
+        ], id='footer-links'),
+
     ], id='footer'),
 
 ], className='container')
