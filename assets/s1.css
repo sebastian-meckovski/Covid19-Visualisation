@@ -187,6 +187,7 @@ body {
 
   .dashboard-title {
     font-size: 1.3rem;
+    padding-right: 70px;
   }
 
   .toggle-button {
@@ -200,6 +201,7 @@ body {
 
   .navbar{
     align-items: center;
+    flex-direction: column;
   }
 
   .navbar-links ul {
