@@ -93,7 +93,7 @@ app.layout = html.Div([
             id="navbar-links",
             children=html.Ul(
                 children=[
-                    html.Li(html.A("Linked-In", href="#")),
+                    html.Li(html.A("Home", href="#")),
                     html.Li(html.A("Source Code", href="#")),
                     html.Li(html.A("CSV Data", href="#"))]),
             className="navbar-links active"
@@ -381,7 +381,7 @@ def update_graph6(country_name):
     fig = px.bar(country_df.tail(30), x='date', y='new_deaths')
     fig.update_traces(marker_color=bar_color)
 
-    fig.update_layout(title={'text': 'New cases last 30 days', **title_style_middle},
+    fig.update_layout(title={'text': 'New deaths last 30 days', **title_style_middle},
                       xaxis=bar_chart_style,
                       yaxis=bar_chart_style,
                       margin=dict(l=0, r=0, t=0, b=0),

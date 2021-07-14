@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
 body {
   background-color: #f1f2dc;
   margin: 0;
   padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .navbar {
@@ -74,9 +75,18 @@ body {
   height: 3.5rem;
 }
 
+#footer-links{
+  display: flex;
+}
+
+#find-me-on{
+  padding-right: 20px;
+  font-size: .8rem;
+}
+
 #footer-text {
   margin: .5rem;
-  font-size: 1.5rem;
+  font-size: .8rem;
 }
 
 .container-grid {
@@ -216,19 +226,14 @@ body {
   #footer-text {
   margin: .5rem;
   font-size: .8rem;
-}
-  #footer-links{
-    display: flex;
-  }
-
-  #footer-links > *{
-    padding: 6px;
   }
 
   #find-me-on{
-    padding-right: 20px;
-    font-size: .8rem;
+    padding-right: 15px;
   }
+
+
+
 
 
 }
