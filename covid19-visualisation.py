@@ -187,7 +187,7 @@ app.layout = html.Div([
         html.Div([
             html.P(['Find Me On:'], id='find-me-on'),
             html.A([html.Img(src=app.get_asset_url('linkedInLogo.png'), style={'height': '2rem'})], href='#'),
-            html.A(['Link 2'], href='#')
+            html.A([html.Img(src=app.get_asset_url('facebookLogo.png'), style={'height': '2rem'})], href='#')
         ], id='footer-links'),
 
     ], id='footer'),
