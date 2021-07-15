@@ -94,7 +94,7 @@ app.layout = html.Div([
             children=html.Ul(
                 children=[
                     html.Li(html.A("Home", href="#")),
-                    html.Li(html.A("Source Code", href="#")),
+                    html.Li(html.A('Source Code', href="#", )),
                     html.Li(html.A("CSV Data", href="#"))]),
             className="navbar-links active"
         )],
@@ -186,7 +186,7 @@ app.layout = html.Div([
 
         html.Div([
             html.P(['Find Me On:'], id='find-me-on'),
-            html.A(['Link 1'], href='#'),
+            html.A([html.Img(src=app.get_asset_url('linkedInLogo.png'), style={'height': '2rem'})], href='#'),
             html.A(['Link 2'], href='#')
         ], id='footer-links'),
 
