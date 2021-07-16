@@ -111,7 +111,7 @@ app.layout = html.Div([
                         value=['United Kingdom', 'United States'],
                         style=dropdown_style
                     ),
-        ], id='dropdown1'),
+        ], id='dropdown2'),
 
         html.Div([
 
@@ -139,7 +139,7 @@ app.layout = html.Div([
                 options=[{'label': i, 'value': i} for i in df['location'].unique()],
                 value='United Kingdom',
                 style=dropdown_style)
-        ], id='dropdown2'),
+        ], id='dropdown1'),
 
         html.Div([
 
