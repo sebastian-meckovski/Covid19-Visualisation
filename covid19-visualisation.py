@@ -93,9 +93,9 @@ app.layout = html.Div([
             id="navbar-links",
             children=html.Ul(
                 children=[
-                    html.Li(html.A("Home", href="#")),
-                    html.Li(html.A('Source Code', href="#", )),
-                    html.Li(html.A("CSV Data", href="#"))]),
+                    html.Li(html.A("Home", href="https://sebastian-meckovski.github.io/seb_website_portfilio/")),
+                    html.Li(html.A('Source Code', href="https://github.com/sebastian-meckovski/Covid19-visualisation", )),
+                    html.Li(html.A("CSV Data", href="https://covid.ourworldindata.org/data/owid-covid-data.csv"))]),
             className="navbar-links active"
         )],
         className="navbar"),
@@ -186,8 +186,10 @@ app.layout = html.Div([
 
         html.Div([
             html.P(['Find Me On:'], id='find-me-on'),
-            html.A([html.Img(src=app.get_asset_url('linkedInLogo.png'), style={'height': '2rem'})], href='#'),
-            html.A([html.Img(src=app.get_asset_url('facebookLogo.png'), style={'height': '2rem'})], href='#')
+            html.A([html.Img(src=app.get_asset_url('linkedInLogo.png'), style={'height': '2rem'})],
+                   href='https://www.linkedin.com/in/sebastian-meckovski'),
+            html.A([html.Img(src=app.get_asset_url('facebookLogo.png'), style={'height': '2rem'})],
+                   href='https://www.facebook.com/sebastian.meckovski/')
         ], id='footer-links'),
 
     ], id='footer'),
@@ -195,12 +197,14 @@ app.layout = html.Div([
 ], className='container')
 
 layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
-                                   'ticksuffix': '%'},
+                                   'ticksuffix': '%', 'range': [0, 100]},  # will need to create custom range
                             legend=legend_style,
                             title={'yanchor': 'auto', 'text': 'People with at least 1st dose', 'y': .99, 'x': .062},
                             margin=dict(l=5, r=5, t=20, b=30),
                             plot_bgcolor='#bfd8d5',
-                            paper_bgcolor='#bfd8d5')
+                            paper_bgcolor='#bfd8d5',
+                            )
+
 
 layout_settings2 = copy.deepcopy(layout_settings)
 layout_settings2['title']['text'] = 'Fully vaccinated'
@@ -218,6 +222,7 @@ def update_graph1(country_names, date_range):
         country_df = df[(df['location'] == country_names[i]) & (df['date'] >= unix_to_date(date_range[0])) &
                         (df['date'] <= unix_to_date(date_range[1]))]
         country_df = country_df.dropna(subset=['people_vaccinated_per_hundred'])
+
         fig1 = go.Scatter(x=country_df['date'],
                           y=country_df['people_vaccinated_per_hundred'],
                           mode='lines+markers',
@@ -229,9 +234,12 @@ def update_graph1(country_names, date_range):
                           mode='lines+markers',
                           name=country_names[i],
                           )
-
         scatter_list_1st_vacc.append(fig1)
         scatter_list_2st_vacc.append(fig2)
+
+        # print(layout_settings)
+        # print(fig1['y'])
+        # print(fig2['y'])
 
     return {'data': scatter_list_1st_vacc, 'layout': layout_settings},\
            {'data': scatter_list_2st_vacc, 'layout': layout_settings2}
