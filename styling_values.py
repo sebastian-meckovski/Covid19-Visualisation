@@ -6,20 +6,27 @@ DarkSkyeBlue = '#c6d7da'
 DarkSkyeBlueDarker = '#c7e5eb'
 LightBue = '#d3e2e2'
 
+LightGreen = '#d3e2e2'
+
 style = {
     'border': '#9db0ae solid 2px',
     'border-radius': '10px',
-    'background-color': '#bfd8d5',
-    'padding': '3px'}
+    'background-color': LightGreen,
+    'padding': '3px'
+}
 
 dropdown_style = {
     'color': 'black',
-    'background-color': '#dfdfdf',
-    'border-radius': '7px'
+    'background-color': LightGreen,
+    'border-radius': '10px',
 }
 
-legend_style = {'orientation': 'v', 'xanchor': 'auto',  'yanchor': 'auto', 'x': 0.055, 'y': .99, 'bgcolor': "#d8e7e5",
-                'bordercolor': "#859795", 'borderwidth': 2}
+legend_style = {'orientation': 'v', 'xanchor': 'auto',
+                'yanchor': 'auto', 'x': 0.055, 'y': .99,
+                'bgcolor': "#d8e7e5", 'bordercolor': "#859795",
+                'borderwidth': 2}
+
+plotPaperBgColor = {'plot_bgcolor': LightGreen, 'paper_bgcolor': LightGreen}
 
 bar_color = '#5f8580'
 

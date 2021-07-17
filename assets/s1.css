@@ -103,6 +103,13 @@ body {
   font-size: .8rem;
 }
 
+.numbers{
+    text-shadow: 2px 2px 4px #b4d6d2;
+}
+
+/* This is where all the graphs start.
+   CSS grid layout has been used for this */
+
 .container-grid {
   display: grid;
   min-height: 100%;
@@ -113,10 +120,10 @@ body {
   grid-gap: 3px;
 }
 
-#dropdown1{
+#dropdown1, #dropdown2{
   grid-area: 2 / 1 / 3 / -1;
   border: #9db0ae solid 2px;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 #graph3{
@@ -137,8 +144,6 @@ body {
 
 #dropdown2{
   grid-area: 5 / 1 / 6 / -1;
-  border: #9db0ae solid 2px;
-  border-radius: 10px;
 }
 
 #graph1{
@@ -155,10 +160,6 @@ body {
   background-color: #bfd8d5;
   border: #9db0ae solid 2px;
   border-radius: 10px;
-}
-
-.numbers{
-    text-shadow: 2px 2px 4px #b4d6d2;
 }
 
 @media only screen and (max-width: 500px) {

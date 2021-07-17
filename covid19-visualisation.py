@@ -31,8 +31,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min_vac, date_max_vac, date_min_cases, date_max_cases
-    # df = pd.read_csv('owid-covid-data.csv')
-    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    df = pd.read_csv('owid-covid-data.csv')
+    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     df['new_cases'] = df['new_cases'].abs()
     df['new_deaths'] = df['new_deaths'].abs()
     date_min_vac = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
@@ -105,7 +105,7 @@ app.layout = html.Div([
 
         html.Div([
                     dcc.Dropdown(
-                        id='country_selected',
+                        id='dropdownCallBackID2',
                         options=[{'label': i, 'value': i} for i in df['location'].unique()],
                         multi=True,
                         value=['United Kingdom', 'United States'],
@@ -128,14 +128,14 @@ app.layout = html.Div([
 
         html.Div([
             dcc.RangeSlider(id='slider',
-                            step=1
+                            step=1,
                             )
-        ], id='slider1'),
+        ], id='slider1', style=style),
 
         html.Div([
 
             dcc.Dropdown(
-                id='country_selected2',
+                id='dropdownCallBackID1',
                 options=[{'label': i, 'value': i} for i in df['location'].unique()],
                 value='United Kingdom',
                 style=dropdown_style)
@@ -156,10 +156,9 @@ app.layout = html.Div([
         html.Div([
 
             dcc.Graph(id='feature-graphic4',
-                      config={'displayModeBar': False},
+                      config=static_config,
                       style={'height': 395, **style},
                       )
-
         ], id='graph4'),
 
         html.Div([
@@ -202,8 +201,7 @@ layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                             title={'yanchor': 'auto', 'text': 'People with at least 1st dose',
                                    'y': .99, 'x': .062},
                             margin=dict(l=5, r=5, t=20, b=30),
-                            plot_bgcolor='#bfd8d5',
-                            paper_bgcolor='#bfd8d5',
+                            **plotPaperBgColor
                             )
 
 
@@ -214,7 +212,7 @@ layout_settings2['title']['text'] = 'Fully vaccinated'
 @app.callback(
         Output('feature-graphic1', 'figure'),
         Output('feature-graphic-2nd-dose', 'figure'),
-        Input('country_selected', 'value'),
+        Input('dropdownCallBackID2', 'value'),
         Input('slider', 'value'))
 def update_graph1(country_names, date_range):
     scatter_list_1st_vacc = []
@@ -249,7 +247,7 @@ def update_graph1(country_names, date_range):
 
 @app.callback(Output('feature-graphic2', 'figure'),
               Output('feature-graphic7', 'figure'),
-              [Input('country_selected2', 'value'),
+              [Input('dropdownCallBackID1', 'value'),
                Input('slider2', 'value')])
 def update_graph2(country_name, date_range):
     country_df_bar = df[(df['location'] == country_name) & (df['date'] >= unix_to_date(date_range[0])) &
@@ -279,11 +277,9 @@ def update_graph2(country_name, date_range):
     )
 
     fig.update_layout(title={'text': 'Total cases per day', 'y': .99, 'x': .99},
-                      # xaxis=None, yaxis=None,
                       margin=dict(l=5, r=5, t=20, b=20),
-                      plot_bgcolor='#bfd8d5',
-                      paper_bgcolor='#bfd8d5',
-                      legend={**legend_style, 'y': .98, 'x': 1.01}
+                      legend={**legend_style, 'y': .98, 'x': 1.01},
+                      **plotPaperBgColor,
                       )
 
     fig.update_traces(marker_color=bar_color)
@@ -299,7 +295,7 @@ def update_graph2(country_name, date_range):
 
 
 @app.callback(Output('feature-graphic4', 'figure'),
-              [Input('country_selected2', 'value')])
+              [Input('dropdownCallBackID1', 'value')])
 def update_piechart(country_name):
     current_country = df[df['location'] == country_name]
 
@@ -318,8 +314,7 @@ def update_piechart(country_name):
                            ))
 
     fig.update_layout(title={'text': 'Vaccinated Population Breakdown ', **title_style_middle},
-                      plot_bgcolor='#bfd8d5',
-                      paper_bgcolor='#bfd8d5',
+                      **plotPaperBgColor,
                       margin=dict(t=15, b=15, l=15, r=15))
 
     return fig
@@ -356,7 +351,7 @@ def update_slider2(empty_value):
 
 
 @app.callback(Output('feature-graphic5', 'figure'),
-              [Input('country_selected2', 'value')])
+              [Input('dropdownCallBackID1', 'value')])
 def update_graph5(country_name):
     print(country_name)
     country_df = df[df['location'] == country_name]
@@ -368,7 +363,7 @@ def update_graph5(country_name):
     fig.update_layout(xaxis=bar_chart_style,
                       yaxis=bar_chart_style,
                       margin=dict(l=0, r=0, t=0, b=0),
-                      plot_bgcolor='#bfd8d5',
+                      **plotPaperBgColor,
                       title={'text': 'New cases last 30 days', **title_style_middle}
                       )
 
@@ -384,7 +379,7 @@ def update_graph5(country_name):
 
 
 @app.callback(Output('feature-graphic6', 'figure'),
-              [Input('country_selected2', 'value')])
+              [Input('dropdownCallBackID1', 'value')])
 def update_graph6(country_name):
     print(country_name)
     country_df = df[df['location'] == country_name]
@@ -395,7 +390,7 @@ def update_graph6(country_name):
                       xaxis=bar_chart_style,
                       yaxis=bar_chart_style,
                       margin=dict(l=0, r=0, t=0, b=0),
-                      plot_bgcolor='#bfd8d5'
+                      **plotPaperBgColor
                       )
 
     fig.add_trace(go.Indicator(
