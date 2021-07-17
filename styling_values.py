@@ -7,6 +7,7 @@ DarkSkyeBlueDarker = '#bdd5ff'
 LightBlue = '#cfe0ff'
 DarkBlueBars = '#2b66fc'
 DarkBlueHover = '#87b3ff'
+DarkBlue = '#5493ff'
 
 style = {
     'border': DarkBlueHover + ' solid 2px',

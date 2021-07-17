@@ -312,7 +312,8 @@ def update_piechart(country_name):
                            showlegend=False,
                            hoverinfo='skip',
                            ))
-    # fig.update_traces(marker=dict(colors=['red', 'green', 'blue']))  # Color picking in progress
+
+    fig.update_traces(marker=dict(colors=['#062c80', '#0e6ac7', DarkBlue]))
 
     fig.update_layout(title={'text': 'Vaccinated Population Breakdown ', **title_style_middle},
                       **plotPaperBgColor,
