@@ -1,20 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
 
 /*
-Colors used:
+Starting the file with defining fonts
+and creating some color variables
 
-BrownGrey = '#ac9592'
 LightBrown = '#dbba3'
-SandBrown = '#e3d0c3'
 Grey = '#eeeceb'
 DarkSkyeBlue = '#c6d7da'
 DarkSkyeBlueDarker = '#c7e5eb'
-LightBue = '#d3e2e2'
 */
 
+:root {
+  --DarkBlue: #186aed;
+  --BrownGrey: #948482;
+  --SandBrown: #e3d0c3;
+  --LightBlue: #cfe0ff;
+  --DarkSkyeBlueDarker: #bdd5ff;
+}
 
 body {
-  background-color: #f1f2dc;
+  background-color: var(--LightBlue);
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
@@ -24,7 +29,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #36403f;
+  background-color: var(--DarkBlue);
   color: white;
 }
 
@@ -84,7 +89,7 @@ body {
   align-items: center;
   bottom: 0;
   width: 100%;
-  background: #36403f;
+  background: var(--DarkBlue);
   color: white;
   height: 3.5rem;
 }

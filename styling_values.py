@@ -3,10 +3,10 @@ LightBrown = '#dbba3'
 SandBrown = '#e3d0c3'
 Grey = '#eeeceb'
 DarkSkyeBlue = '#c6d7da'
-DarkSkyeBlueDarker = '#c7e5eb'
-LightBue = '#d3e2e2'
+DarkSkyeBlueDarker = '#bdd5ff'
+LightBlue = '#cfe0ff'
 
-LightGreen = '#d3e2e2'
+LightGreen = '#bdd5ff'
 
 style = {
     'border': '#9db0ae solid 2px',
@@ -23,7 +23,7 @@ dropdown_style = {
 
 legend_style = {'orientation': 'v', 'xanchor': 'auto',
                 'yanchor': 'auto', 'x': 0.055, 'y': .99,
-                'bgcolor': "#d8e7e5", 'bordercolor': "#859795",
+                'bgcolor': DarkSkyeBlueDarker, 'bordercolor': "#859795",
                 'borderwidth': 2}
 
 plotPaperBgColor = {'plot_bgcolor': LightGreen, 'paper_bgcolor': LightGreen}
