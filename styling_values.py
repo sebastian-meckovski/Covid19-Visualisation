@@ -23,7 +23,7 @@ dropdown_style = {
 
 legend_style = {'orientation': 'v', 'xanchor': 'auto',
                 'yanchor': 'auto', 'x': 0.055, 'y': .99,
-                'bgcolor': DarkSkyeBlueDarker, 'bordercolor': "#859795",
+                'bgcolor': DarkSkyeBlueDarker, 'bordercolor': DarkBlueHover,
                 'borderwidth': 2}
 
 plotPaperBgColor = {'plot_bgcolor': DarkSkyeBlueDarker, 'paper_bgcolor': DarkSkyeBlueDarker}

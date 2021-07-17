@@ -111,6 +111,13 @@ body {
     text-shadow: 2px 2px 4px #b4d6d2;
 }
 
+/*
+.sliderClass .rc-slider-track, .rc-slider-dot-active {
+  background-color: var(--DarkBlue);
+  border-color: var(--DarkBlue);
+}
+*/
+
 /* This is where all the graphs start.
    CSS grid layout has been used for this */
 
