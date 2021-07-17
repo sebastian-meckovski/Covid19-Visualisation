@@ -1,22 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
-
 /*
 Starting the file with defining fonts
 and creating some color variables
-
-LightBrown = '#dbba3'
-Grey = '#eeeceb'
-DarkSkyeBlue = '#c6d7da'
-DarkSkyeBlueDarker = '#c7e5eb'
 */
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+
 :root {
-  --DarkBlue: #186aed;
+  --DarkBlue: #5493ff;
+  --DarkBlueHover: #87b3ff;
   --BrownGrey: #948482;
   --SandBrown: #e3d0c3;
   --LightBlue: #cfe0ff;
   --DarkSkyeBlueDarker: #bdd5ff;
 }
+
+/* Defining body, navbar and footer properties */
 
 body {
   background-color: var(--LightBlue);
@@ -61,7 +60,7 @@ body {
 }
 
 .navbar-links li a:hover{
-  background-color: #498079;
+  background-color: var(--DarkBlueHover);
 }
 
 .toggle-button{
@@ -127,7 +126,7 @@ body {
 
 #dropdown1, #dropdown2{
   grid-area: 2 / 1 / 3 / -1;
-  border: #9db0ae solid 2px;
+  border: var(--DarkBlueHover) solid 2px;
   border-radius: 12px;
 }
 

@@ -5,19 +5,19 @@ Grey = '#eeeceb'
 DarkSkyeBlue = '#c6d7da'
 DarkSkyeBlueDarker = '#bdd5ff'
 LightBlue = '#cfe0ff'
-
-LightGreen = '#bdd5ff'
+DarkBlueBars = '#2b66fc'
+DarkBlueHover = '#87b3ff'
 
 style = {
-    'border': '#9db0ae solid 2px',
+    'border': DarkBlueHover + ' solid 2px',
     'border-radius': '10px',
-    'background-color': LightGreen,
+    'background-color': DarkSkyeBlueDarker,
     'padding': '3px'
 }
 
 dropdown_style = {
     'color': 'black',
-    'background-color': LightGreen,
+    'background-color': DarkSkyeBlueDarker,
     'border-radius': '10px',
 }
 
@@ -26,9 +26,9 @@ legend_style = {'orientation': 'v', 'xanchor': 'auto',
                 'bgcolor': DarkSkyeBlueDarker, 'bordercolor': "#859795",
                 'borderwidth': 2}
 
-plotPaperBgColor = {'plot_bgcolor': LightGreen, 'paper_bgcolor': LightGreen}
+plotPaperBgColor = {'plot_bgcolor': DarkSkyeBlueDarker, 'paper_bgcolor': DarkSkyeBlueDarker}
 
-bar_color = '#5f8580'
+bar_color = DarkBlueBars
 
 title_style_middle = {'y': 1, 'x': .5}
 

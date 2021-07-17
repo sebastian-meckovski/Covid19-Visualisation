@@ -31,8 +31,8 @@ def openurl():
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min_vac, date_max_vac, date_min_cases, date_max_cases
-    df = pd.read_csv('owid-covid-data.csv')
-    # df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+    # df = pd.read_csv('owid-covid-data.csv')
+    df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
     df['new_cases'] = df['new_cases'].abs()
     df['new_deaths'] = df['new_deaths'].abs()
     date_min_vac = df[(df['date'] >= '') & (df['people_vaccinated_per_hundred'])]['date'].min()
@@ -130,7 +130,7 @@ app.layout = html.Div([
             dcc.RangeSlider(id='slider',
                             step=1,
                             )
-        ], id='slider1', style=style),
+        ], id='slider1', style={**style, 'padding-bottom': '5px'}),
 
         html.Div([
 
@@ -151,7 +151,7 @@ app.layout = html.Div([
 
             dcc.RangeSlider(
                 id='slider2')
-        ], id='graph3', style=style),
+        ], id='graph3', style={**style, 'padding-bottom': '5px'}),
 
         html.Div([
 
