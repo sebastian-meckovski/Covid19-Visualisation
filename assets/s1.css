@@ -1,4 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+/*
+Colors used:
+
+BrownGrey = '#ac9592'
+LightBrown = '#dbba3'
+SandBrown = '#e3d0c3'
+Grey = '#eeeceb'
+DarkSkyeBlue = '#c6d7da'
+DarkSkyeBlueDarker = '#c7e5eb'
+LightBue = '#d3e2e2'
+*/
+
+
 body {
   background-color: #f1f2dc;
   margin: 0;

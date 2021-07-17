@@ -1,3 +1,11 @@
+BrownGrey = '#ac9592'
+LightBrown = '#dbba3'
+SandBrown = '#e3d0c3'
+Grey = '#eeeceb'
+DarkSkyeBlue = '#c6d7da'
+DarkSkyeBlueDarker = '#c7e5eb'
+LightBue = '#d3e2e2'
+
 style = {
     'border': '#9db0ae solid 2px',
     'border-radius': '10px',
