@@ -199,7 +199,8 @@ app.layout = html.Div([
 layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                                    'ticksuffix': '%', 'range': [0, 100]},  # will need to create custom range
                             legend=legend_style,
-                            title={'yanchor': 'auto', 'text': 'People with at least 1st dose', 'y': .99, 'x': .062},
+                            title={'yanchor': 'auto', 'text': 'People with at least 1st dose',
+                                   'y': .99, 'x': .062},
                             margin=dict(l=5, r=5, t=20, b=30),
                             plot_bgcolor='#bfd8d5',
                             paper_bgcolor='#bfd8d5',
@@ -218,6 +219,7 @@ layout_settings2['title']['text'] = 'Fully vaccinated'
 def update_graph1(country_names, date_range):
     scatter_list_1st_vacc = []
     scatter_list_2st_vacc = []
+    max_list = []
     for i in range(len(country_names)):
         country_df = df[(df['location'] == country_names[i]) & (df['date'] >= unix_to_date(date_range[0])) &
                         (df['date'] <= unix_to_date(date_range[1]))]
@@ -237,9 +239,9 @@ def update_graph1(country_names, date_range):
         scatter_list_1st_vacc.append(fig1)
         scatter_list_2st_vacc.append(fig2)
 
-        # print(layout_settings)
-        # print(fig1['y'])
-        # print(fig2['y'])
+        max_list.append(fig1['y'].max())
+
+        layout_settings['yaxis']['range'] = layout_settings2['yaxis']['range'] = [0, int(max(max_list)) + 3]
 
     return {'data': scatter_list_1st_vacc, 'layout': layout_settings},\
            {'data': scatter_list_2st_vacc, 'layout': layout_settings2}
