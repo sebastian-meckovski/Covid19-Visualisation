@@ -255,14 +255,14 @@ def update_graph2(country_name, date_range):
                         (df['date'] <= unix_to_date(date_range[1]))]
 
     country_df_sca.loc[:, 'new_cases'] = country_df_sca.loc[:, 'new_cases'].rolling(window=7).mean()
-    country_df_sca.loc[:, 'new_cases'] = country_df_sca.loc[:, 'new_cases'].iloc[::6]
+    country_df_sca.loc[:, 'new_cases'] = country_df_sca.loc[:, 'new_cases'].iloc[::3]
 
     country_df_sca.loc[:, 'new_deaths'] = country_df_sca.loc[:, 'new_deaths'].rolling(window=7).mean()
-    country_df_sca.loc[:, 'new_deaths'] = country_df_sca.loc[:, 'new_deaths'].iloc[::6]
+    country_df_sca.loc[:, 'new_deaths'] = country_df_sca.loc[:, 'new_deaths'].iloc[::3]
 
     country_df_sca = country_df_sca.dropna(subset=['new_cases'])
 
-    fig = go.Figure(layout=go.Layout(height=350)) # need to check if there is a better way of putting it
+    fig = go.Figure(layout=go.Layout(height=350))
 
     fig.add_trace(
         go.Scatter(x=country_df_sca['date'], y=country_df_sca['new_cases'],

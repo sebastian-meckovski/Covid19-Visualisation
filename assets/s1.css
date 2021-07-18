@@ -214,8 +214,9 @@ body {
   }
 
   .dashboard-title {
+    position: absolute;
+    left: 0;
     font-size: 1rem;
-    padding-right: 80px;
   }
 
   .toggle-button {
@@ -227,8 +228,8 @@ body {
     width: 100%;
   }
 
-  .navbar{
-    align-items: center;
+  .navbar {
+    justify-content: center;
     flex-direction: column;
     min-height:45px;
   }
@@ -244,6 +245,12 @@ body {
 
   .navbar-links li a{
     padding: .5rem 1rem;
+  }
+
+  a{
+    display: flex;
+    align-items: center;
+    padding: 2px;
   }
 
   .navbar-links.active {
