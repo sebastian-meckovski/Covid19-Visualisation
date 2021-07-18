@@ -40,8 +40,6 @@ def get_new_data():
     date_min_cases = df[(df['date'] >= '') & (df['total_cases'])]['date'].min()
     date_max_cases = df[(df['date'] >= '') & (df['total_cases'])]['date'].max()
 
-    print('data loaded')
-
 
 def get_new_data_every(period=1200):
     """Update the data every 'period' seconds"""
@@ -75,6 +73,7 @@ def create_steps(date_min_arg, date_max_arg):
     return day_steps
 
 
+pd.options.mode.chained_assignment = None  # disabling SettingWithCopyWarning
 get_new_data()
 
 app.layout = html.Div([
@@ -255,11 +254,11 @@ def update_graph2(country_name, date_range):
     country_df_sca = df[(df['location'] == country_name) & (df['date'] >= unix_to_date(date_range[0])) &
                         (df['date'] <= unix_to_date(date_range[1]))]
 
-    country_df_sca['new_cases'] = country_df_sca['new_cases'].rolling(window=7).mean()
-    country_df_sca['new_cases'] = country_df_sca['new_cases'].iloc[::2]  # warning needs handling
+    country_df_sca.loc[:, 'new_cases'] = country_df_sca.loc[:, 'new_cases'].rolling(window=7).mean()
+    country_df_sca.loc[:, 'new_cases'] = country_df_sca.loc[:, 'new_cases'].iloc[::6]
 
-    country_df_sca['new_deaths'] = country_df_sca['new_deaths'].rolling(window=7).mean()
-    country_df_sca['new_deaths'] = country_df_sca['new_deaths'].iloc[::2]  # warning needs handling
+    country_df_sca.loc[:, 'new_deaths'] = country_df_sca.loc[:, 'new_deaths'].rolling(window=7).mean()
+    country_df_sca.loc[:, 'new_deaths'] = country_df_sca.loc[:, 'new_deaths'].iloc[::6]
 
     country_df_sca = country_df_sca.dropna(subset=['new_cases'])
 
@@ -333,7 +332,6 @@ def update_slider(empty_value):
     marks = create_steps(date_to_unix(date_min_vac), date_to_unix(date_max_vac)),
     value = [date_to_unix(date_min_vac), date_to_unix(date_max_vac)],
     empty_value = None
-    print('values updated from update slider function')
     return min_arg[0], max_arg[0], marks[0], value[0]
 
 
@@ -348,14 +346,12 @@ def update_slider2(empty_value):
     marks = create_steps(date_to_unix(date_min_cases), date_to_unix(date_max_cases)),
     value = [date_to_unix(date_max_cases)-31536000, date_to_unix(date_max_cases)],
     empty_value = None
-    print('values updated from update slider function')
     return min_arg[0], max_arg[0], marks[0], value[0]
 
 
 @app.callback(Output('feature-graphic5', 'figure'),
               [Input('dropdownCallBackID1', 'value')])
 def update_graph5(country_name):
-    print(country_name)
     country_df = df[df['location'] == country_name]
 
     fig = px.bar(country_df.tail(30), x='date', y='new_cases')
@@ -383,7 +379,6 @@ def update_graph5(country_name):
 @app.callback(Output('feature-graphic6', 'figure'),
               [Input('dropdownCallBackID1', 'value')])
 def update_graph6(country_name):
-    print(country_name)
     country_df = df[df['location'] == country_name]
     fig = px.bar(country_df.tail(30), x='date', y='new_deaths')
     fig.update_traces(marker_color=bar_color)
