@@ -119,6 +119,11 @@ body {
   border-color: var(--DarkBlue);
 }
 
+a{
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
 
 /* This is where all the graphs start.
    CSS grid layout has been used for this */
@@ -244,12 +249,6 @@ body {
 
   .navbar-links li a{
     padding: .5rem 1rem;
-  }
-
-  a{
-    display: flex;
-    align-items: center;
-    padding: 2px;
   }
 
   .navbar-links.active {
