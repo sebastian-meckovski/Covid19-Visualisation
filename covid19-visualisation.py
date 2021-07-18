@@ -93,9 +93,9 @@ app.layout = html.Div([
             id="navbar-links",
             children=html.Ul(
                 children=[
-                    html.Li(html.A("Home", href="https://sebastian-meckovski.github.io/seb_website_portfilio/")),
-                    html.Li(html.A('Source Code', href="https://github.com/sebastian-meckovski/Covid19-visualisation", )),
-                    html.Li(html.A("CSV Data", href="https://covid.ourworldindata.org/data/owid-covid-data.csv"))]),
+                    html.Li(html.A("Home", href=homeURL)),
+                    html.Li(html.A('Source Code', href=sourceCodeURL)),
+                    html.Li(html.A("CSV Data", href=sourceDataURL))]),
             className="navbar-links active"
         )],
         className="navbar"),
@@ -186,9 +186,9 @@ app.layout = html.Div([
         html.Div([
             html.P(['Find Me On:'], id='find-me-on'),
             html.A([html.Img(src=app.get_asset_url('linkedInLogo.png'), style={'height': '2rem'})],
-                   href='https://www.linkedin.com/in/sebastian-meckovski'),
+                   href=linkedInURL),
             html.A([html.Img(src=app.get_asset_url('facebookLogo.png'), style={'height': '2rem'})],
-                   href='https://www.facebook.com/sebastian.meckovski/')
+                   href=facebookURL)
         ], id='footer-links'),
 
     ], id='footer'),

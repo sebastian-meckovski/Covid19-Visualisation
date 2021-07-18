@@ -9,6 +9,12 @@ DarkBlueBars = '#2b66fc'
 DarkBlueHover = '#87b3ff'
 DarkBlue = '#5493ff'
 
+linkedInURL = 'https://www.linkedin.com/in/sebastian-meckovski'
+facebookURL = 'https://www.facebook.com/sebastian.meckovski/'
+homeURL = 'https://sebastian-meckovski.github.io/seb_website_portfilio/'
+sourceCodeURL = 'https://github.com/sebastian-meckovski/Covid19-visualisation'
+sourceDataURL = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+
 style = {
     'border': DarkBlueHover + ' solid 2px',
     'border-radius': '10px',
