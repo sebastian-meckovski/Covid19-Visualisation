@@ -192,7 +192,7 @@ app.layout = html.Div([
 
     ], id='footer'),
 
-], className='container')
+], className='container', id='seb-covid-dashboard')
 
 layout_settings = go.Layout(yaxis={'anchor': 'free', 'position': 0.05,
                                    'ticksuffix': '%', 'range': [0, 100]},  # will need to create custom range
