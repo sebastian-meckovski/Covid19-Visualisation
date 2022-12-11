@@ -1,8 +1,8 @@
 import copy
 import pandas as pd
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import html
+from dash import dcc
 from dash.dependencies import Input, Output, State
 import plotly.graph_objs as go
 import plotly.express as px
@@ -20,14 +20,6 @@ app = dash.Dash(__name__,
 server = app.server
 
 
-def openurl():
-    """this function will send a request to 'url' and do nothing after that"""
-    url = 'https://covid19-visualisation-seb.herokuapp.com/'
-    # url = 'https://www.google.com/'
-    urllib2.urlopen(url)
-    pass
-
-
 def get_new_data():
     """Updates the global variable 'df' with new data"""
     global df, date_min_vac, date_max_vac, date_min_cases, date_max_cases
@@ -41,11 +33,10 @@ def get_new_data():
     date_max_cases = df[(df['date'] >= '') & (df['total_cases'])]['date'].max()
 
 
-def get_new_data_every(period=1200):
+def get_new_data_every(period=12000):
     """Update the data every 'period' seconds"""
     while True:
         get_new_data()
-        openurl()
         t.sleep(period)
 
 
