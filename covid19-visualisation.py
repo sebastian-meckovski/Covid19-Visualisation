@@ -33,11 +33,7 @@ def get_new_data():
     date_max_cases = df[(df['date'] >= '') & (df['total_cases'])]['date'].max()
 
 
-def get_new_data_every(period=12000):
-    """Update the data every 'period' seconds"""
-    while True:
-        get_new_data()
-        t.sleep(period)
+get_new_data()
 
 
 def date_to_unix(date_arg):
@@ -404,9 +400,6 @@ def callback(n_clicks, current_classes):
         return base_class
     return base_class + " active"
 
-
-executor = ThreadPoolExecutor(max_workers=1)
-executor.submit(get_new_data_every)
 
 if __name__ == '__main__':
     app.run_server()
